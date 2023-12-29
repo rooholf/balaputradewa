@@ -2,7 +2,7 @@
   "name": "balaputradewa",
   "version": "3.25.0",
   "private": true,
-  "homepage": "https://rooholf.github.io/balaputradewa/",
+  "homepage": "https://rooholf.github.io/balaputradewa",
   "dependencies": {
     "@ant-design/charts": "^1.4.3",
     "@ant-design/graphs": "^1.2.7",
@@ -63,11 +63,5 @@
   ],
   "refine": {
     "projectId": "m9hQ9y-P7pCNe-K10G2j"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   }
 }
