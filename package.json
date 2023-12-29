@@ -1,7 +1,7 @@
 {
   "name": "balaputradewa",
   "version": "3.25.0",
-  "private": true,
+  "private": false,
   "homepage": "https://rooholf.github.io/balaputradewa",
   "dependencies": {
     "@ant-design/charts": "^1.4.3",
