@@ -63,5 +63,11 @@
   ],
   "refine": {
     "projectId": "m9hQ9y-P7pCNe-K10G2j"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   }
 }
