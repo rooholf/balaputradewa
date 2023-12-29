@@ -2,7 +2,7 @@
   "name": "balaputradewa",
   "version": "3.25.0",
   "private": true,
-  "homepage": "https://rooholf.github.io/Balaputradewa-App",
+  "homepage": "https://rooholf.github.io/balaputradewag",
   "dependencies": {
     "@ant-design/charts": "^1.4.3",
     "@ant-design/graphs": "^1.2.7",
