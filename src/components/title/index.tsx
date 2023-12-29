@@ -1,7 +1,7 @@
 import { useLink } from "@refinedev/core";
-import { theme } from "antd";
+import { Flex, Typography, theme } from "antd";
 
-import { BikeWhiteIcon, FineFoodsIcon } from "../../components";
+import { BikeWhiteIcon } from "../../components";
 import { Logo } from "./styled";
 
 const { useToken } = theme;
@@ -13,6 +13,7 @@ type TitleProps = {
 export const Title: React.FC<TitleProps> = ({ collapsed }) => {
     const { token } = useToken();
     const Link = useLink();
+    const { Title } = Typography;
 
     return (
         <Logo>
@@ -25,13 +26,9 @@ export const Title: React.FC<TitleProps> = ({ collapsed }) => {
                         }}
                     />
                 ) : (
-                    <FineFoodsIcon
-                        style={{
-                            color: token.colorTextHeading,
-                            width: "100%",
-                            height: "auto",
-                        }}
-                    />
+                    <Flex gap="middle">
+                        <Typography style={{ fontSize: "20px" }}>BALAPUTRADEWA</Typography>
+                    </Flex>
                 )}
             </Link>
         </Logo>

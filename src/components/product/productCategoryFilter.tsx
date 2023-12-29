@@ -80,7 +80,7 @@ export const ProductCategoryFilter: React.FC<ProductItemProps> = ({
                     }
                     onClick={() => toggleFilterCategory(category.id.toString())}
                 >
-                    {category.title}
+                    {category.name}
                 </Button>
             ))}
         </Space>

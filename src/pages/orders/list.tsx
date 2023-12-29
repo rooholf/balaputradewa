@@ -18,6 +18,7 @@ import {
     NumberField,
     useSelect,
     ExportButton,
+    useDrawerForm,
 } from "@refinedev/antd";
 import { SearchOutlined } from "@ant-design/icons";
 import {
@@ -41,8 +42,9 @@ import {
     IStore,
     IOrderFilterVariables,
     IOrderStatus,
-    IUser,
+    IVehicleOrders,
 } from "../../interfaces";
+import { EditOrder } from "../../components/editOrder";
 
 const { RangePicker } = DatePicker;
 
@@ -54,51 +56,40 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
     >({
         onSearch: (params) => {
             const filters: CrudFilters = [];
-            const { q, store, user, createdAt, status } = params;
+            const { q, created_at, _status } = params;
 
             filters.push({
                 field: "q",
                 operator: "eq",
-                value: q,
+                value: q ? q : "q",
             });
 
             filters.push({
-                field: "store.id",
+                field: "_status",
                 operator: "eq",
-                value: store,
-            });
-
-            filters.push({
-                field: "user.id",
-                operator: "eq",
-                value: user,
-            });
-
-            filters.push({
-                field: "status.text",
-                operator: "in",
-                value: status,
+                value: _status,
             });
 
             filters.push(
                 {
-                    field: "createdAt",
+                    field: "created_at",
                     operator: "gte",
-                    value: createdAt
-                        ? createdAt[0].startOf("day").toISOString()
+                    value: created_at
+                        ? created_at[0].startOf("day").toISOString()
                         : undefined,
                 },
                 {
-                    field: "createdAt",
+                    field: "created_at",
                     operator: "lte",
-                    value: createdAt
-                        ? createdAt[1].endOf("day").toISOString()
+                    value: created_at
+                        ? created_at[1].endOf("day").toISOString()
                         : undefined,
                 },
             );
 
             return filters;
         },
+        syncWithLocation: false,
     });
 
     const t = useTranslate();
@@ -112,13 +103,27 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
         mapData: (item) => {
             return {
                 id: item.id,
-                amount: item.amount,
-                orderNumber: item.orderNumber,
-                status: item.status.text,
-                store: item.store.title,
-                user: item.user.firstName,
+                amount: item.invTotal,
+                orderNumber: item.invCode,
+                status: item.status,
+                created_at: item.created_at,
+                supplier: item.supplier.id,
+                price: item.supplierPrice,
             };
         },
+    });
+
+    const {
+        drawerProps: editDrawerProps,
+        formProps: editFormProps,
+        saveButtonProps: editSaveButtonProps,
+        show: editShow,
+        id: editId,
+    } = useDrawerForm<IOrder>({
+        action: "create",
+        resource: "orders",
+        redirect: "list",
+        warnWhenUnsavedChanges: false,
     });
 
     const Actions: React.FC = () => (
@@ -128,11 +133,11 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
     return (
         <Row gutter={[16, 16]}>
             <Col
-                xl={6}
+                xl={24}
                 lg={24}
                 xs={24}
                 style={{
-                    marginTop: "52px",
+                    marginTop: 10,
                 }}
             >
                 <Card title={t("orders.filter.title")}>
@@ -142,65 +147,59 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                     />
                 </Card>
             </Col>
-            <Col xl={18} xs={24}>
+            <Col xl={24} xs={24}>
                 <List
                     headerProps={{
                         extra: <Actions />,
                     }}
+                    breadcrumb={null}
                 >
                     <Table
                         {...tableProps}
-                        rowKey="id"
+                        rowKey="invCode"
+                        size="small"
                         onRow={(record) => {
                             return {
                                 onClick: () => {
-                                    show("orders", record.id);
+                                    <OrderActions record={record} editShow={editShow} />
                                 },
                             };
                         }}
                     >
                         <Table.Column
-                            key="orderNumber"
-                            dataIndex="orderNumber"
+                            key="invCode"
+                            dataIndex="invCode"
                             title={t("orders.fields.orderNumber")}
                             render={(value) => <TextField value={value} />}
                         />
                         <Table.Column<IOrder>
-                            key="status.text"
-                            dataIndex={["status", "text"]}
+                            key="status"
+                            dataIndex={"status"}
                             title={t("orders.fields.status")}
                             render={(value) => {
                                 return <OrderStatus status={value} />;
                             }}
-                            defaultSortOrder={getDefaultSortOrder(
-                                "status.text",
-                                sorter,
-                            )}
-                            sorter
+
                         />
                         <Table.Column
                             align="right"
-                            key="amount"
-                            dataIndex="amount"
+                            key="invTotal"
+                            dataIndex="invTotal"
                             title={t("orders.fields.amount")}
-                            defaultSortOrder={getDefaultSortOrder(
-                                "amount",
-                                sorter,
-                            )}
-                            sorter
                             render={(value) => {
                                 return (
                                     <NumberField
                                         options={{
-                                            currency: "USD",
+                                            currency: "IDR",
                                             style: "currency",
+                                            maximumFractionDigits: 0,
                                         }}
-                                        value={value / 100}
+                                        value={value}
                                     />
                                 );
                             }}
                         />
-                        <Table.Column
+                        {/* <Table.Column
                             key="store.id"
                             dataIndex={["store", "title"]}
                             title={t("orders.fields.store")}
@@ -209,34 +208,36 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                             key="user.fullName"
                             dataIndex={["user", "fullName"]}
                             title={t("orders.fields.user")}
-                        />
+                        /> */}
                         <Table.Column<IOrder>
-                            key="products"
-                            dataIndex="products"
-                            title={t("orders.fields.products")}
+                            key="VehicleOrders"
+                            dataIndex="vehicleOrders"
+                            title={t("Vehicle Orders")}
                             render={(_, record) => (
-                                <Popover
+                                record.vehicleOrders && <Popover
                                     content={
                                         <ul>
-                                            {record.products.map((product) => (
-                                                <li key={product.id}>
-                                                    {product.name}
-                                                </li>
+                                            {record.vehicleOrders.map((order) => (
+                                                <>
+                                                    <li key={order.id}>
+                                                        {`${order.plate} - ${order.qty}Kg`}
+                                                    </li>
+                                                </>
                                             ))}
                                         </ul>
                                     }
-                                    title="Products"
+                                    title="Vehicle plate - Qty"
                                     trigger="hover"
                                 >
-                                    {t("orders.fields.itemsAmount", {
-                                        amount: record.products.length,
+                                    {t("orders.fields.qty", {
+                                        amount: record.qty,
                                     })}
                                 </Popover>
                             )}
                         />
                         <Table.Column
-                            key="createdAt"
-                            dataIndex="createdAt"
+                            key="created_at"
+                            dataIndex="created_at"
                             title={t("orders.fields.createdAt")}
                             render={(value) => (
                                 <DateField value={value} format="LLL" />
@@ -250,13 +251,20 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                             key="actions"
                             align="center"
                             render={(_value, record) => (
-                                <OrderActions record={record} />
+                                <OrderActions record={record} editShow={editShow} />
                             )}
                         />
                     </Table>
                 </List>
             </Col>
+            <EditOrder
+                drawerProps={editDrawerProps}
+                formProps={editFormProps}
+                saveButtonProps={editSaveButtonProps}
+                editId={editId}
+            />
         </Row>
+
     );
 };
 
@@ -266,27 +274,10 @@ const Filter: React.FC<{ formProps: FormProps; filters: CrudFilters }> = (
     const t = useTranslate();
 
     const { formProps, filters } = props;
-    const { selectProps: storeSelectProps } = useSelect<IStore>({
-        resource: "stores",
-        defaultValue: getDefaultFilter("store.id", filters),
-    });
 
-    const { selectProps: orderSelectProps } = useSelect<IOrderStatus>({
-        resource: "orderStatuses",
-        optionLabel: "text",
-        optionValue: "text",
-        defaultValue: getDefaultFilter("status.text", filters),
-    });
-
-    const { selectProps: userSelectProps } = useSelect<IUser>({
-        resource: "users",
-        optionLabel: "fullName",
-        defaultValue: getDefaultFilter("user.id", filters),
-    });
-
-    const createdAt = useMemo(() => {
-        const start = getDefaultFilter("createdAt", filters, "gte");
-        const end = getDefaultFilter("createdAt", filters, "lte");
+    const created_at = useMemo(() => {
+        const start = getDefaultFilter("created_at", filters, "gte");
+        const end = getDefaultFilter("created_at", filters, "lte");
 
         const startFrom = dayjs(start);
         const endAt = dayjs(end);
@@ -309,71 +300,63 @@ const Filter: React.FC<{ formProps: FormProps; filters: CrudFilters }> = (
                 user: getDefaultFilter("user.id", filters)
                     ? Number(getDefaultFilter("user.id", filters))
                     : undefined,
-                status: getDefaultFilter("status.text", filters, "in"),
-                createdAt,
+                _status: getDefaultFilter("_status", filters) || "none",
+                created_at,
             }}
         >
             <Row gutter={[10, 0]} align="bottom">
-                <Col xl={24} md={8} sm={12} xs={24}>
+                <Col xl={12} md={8} sm={12} xs={24}>
                     <Form.Item label={t("orders.filter.search.label")} name="q">
                         <Input
-                            placeholder={t("orders.filter.search.placeholder")}
+                            placeholder={"Invoice Numbers, Supplier, Factory, Vehicle Plate"}
                             prefix={<SearchOutlined />}
                         />
                     </Form.Item>
                 </Col>
-                <Col xl={24} md={8} sm={12} xs={24}>
+                <Col xl={12} md={8} sm={12} xs={24}>
                     <Form.Item
                         label={t("orders.filter.status.label")}
-                        name="status"
+                        name="_status"
                     >
                         <Select
-                            {...orderSelectProps}
                             allowClear
-                            mode="multiple"
-                            placeholder={t("orders.filter.status.placeholder")}
+                            placeholder={"Select status"}
+
+                            options={[
+                                {
+                                    label: "Paid",
+                                    value: "paid",
+                                },
+                                {
+                                    label: "Pending",
+                                    value: "pending",
+                                },
+                                {
+                                    label: "None",
+                                    value: "none",
+                                },
+                            ]}
                         />
                     </Form.Item>
                 </Col>
-                <Col xl={24} md={8} sm={12} xs={24}>
+                <Col xl={12} md={8} sm={12} xs={24}>
                     <Form.Item
-                        label={t("orders.filter.store.label")}
-                        name="store"
-                    >
-                        <Select
-                            {...storeSelectProps}
-                            allowClear
-                            placeholder={t("orders.filter.store.placeholder")}
-                        />
-                    </Form.Item>
-                </Col>
-                <Col xl={24} md={8} sm={12} xs={24}>
-                    <Form.Item
-                        label={t("orders.filter.user.label")}
-                        name="user"
-                    >
-                        <Select
-                            {...userSelectProps}
-                            allowClear
-                            placeholder={t("orders.filter.user.placeholder")}
-                        />
-                    </Form.Item>
-                </Col>
-                <Col xl={24} md={8} sm={12} xs={24}>
-                    <Form.Item
-                        label={t("orders.filter.createdAt.label")}
-                        name="createdAt"
+                        label={t("orders.filter.created_at.label")}
+                        name="created_at"
                     >
                         <RangePicker style={{ width: "100%" }} />
                     </Form.Item>
                 </Col>
-                <Col xl={24} md={8} sm={12} xs={24}>
+                <Col xl={12} md={8} sm={12} xs={24}>
                     <Form.Item>
                         <Button
                             htmlType="submit"
                             type="primary"
                             size="large"
                             block
+                            onClick={() => {
+                                const formValues = formProps.form?.getFieldsValue();
+                            }}
                         >
                             {t("orders.filter.submit")}
                         </Button>

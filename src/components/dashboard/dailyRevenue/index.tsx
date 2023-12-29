@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
 import { useApiUrl, useCustom, useTranslate } from "@refinedev/core";
 import { NumberField } from "@refinedev/antd";
-import { Typography } from "antd";
+import { TimeRangePickerProps, Typography } from "antd";
 import { Line } from "@ant-design/charts";
 import { LineConfig } from "@ant-design/plots/lib/components/line";
 import dayjs, { Dayjs } from "dayjs";
+import PresetDate from "antd/lib/calendar/index"; // Import PresetDate with default import syntax
 
 import { IncreaseIcon, DecreaseIcon } from "../../../components/icons";
 
@@ -54,8 +55,8 @@ export const DailyRevenue: React.FC = () => {
             yField: "value",
             color: "rgba(255, 255, 255, 0.5)",
             tooltip: {
-                customContent: (title, data) => {
-                    return `<div style="padding: 8px 4px; font-size:16px; font-weight:600">${data[0]?.value} $</div>`;
+                customContent: (_title: string, data: ISalesChart[]) => { // Remove unused 'title' parameter
+                    return `<div style="padding: 8px 4px; font-size:16px; font-weight:600">Rp ${data[0]?.value}K </div>`;
                 },
             },
 
@@ -78,6 +79,34 @@ export const DailyRevenue: React.FC = () => {
 
     const disabledDate = (date: Dayjs) => date > dayjs();
 
+    const presets: { [key: string]: { startDate: Dayjs; endDate: Dayjs } } = { // Update type of 'presets'
+        "This Week": {
+            startDate: dayjs().startOf("week"),
+            endDate: dayjs().endOf("week"),
+        },
+        "Last Month": {
+            startDate: dayjs().startOf("month").subtract(1, "month"),
+            endDate: dayjs().endOf("month").subtract(1, "month"),
+        },
+        "This Month": {
+            startDate: dayjs().startOf("month"),
+            endDate: dayjs().endOf("month"),
+        },
+        "This Year": {
+            startDate: dayjs().startOf("year"),
+            endDate: dayjs().endOf("year"),
+        },
+    };
+
+    const rangePresets: TimeRangePickerProps['presets'] = [
+        { label: 'This Week', value: [dayjs().startOf('week'), dayjs().endOf('week')] },
+        { label: 'Last Month', value: [dayjs().startOf('month').subtract(1, 'month'), dayjs().endOf('month').subtract(1, 'month')] },
+        { label: 'This Month', value: [dayjs().startOf('month'), dayjs().endOf('month')] },
+        { label: 'This Year', value: [dayjs().startOf('year'), dayjs().endOf('year')] },
+    ];
+
+
+
     return (
         <DailyRevenueWrapper>
             <TitleArea>
@@ -90,11 +119,12 @@ export const DailyRevenue: React.FC = () => {
                             style={{ fontSize: 36 }}
                             strong
                             options={{
-                                currency: "USD",
+                                currency: "IDR",
                                 style: "currency",
                                 notation: "compact",
                             }}
                             value={data?.data.total ?? 0}
+
                         />
                         {(data?.data?.trend ?? 0) > 0 ? (
                             <IncreaseIcon />
@@ -105,6 +135,7 @@ export const DailyRevenue: React.FC = () => {
                 </TitleAreaAmount>
 
                 <RangePicker
+                    presets={rangePresets}
                     size="small"
                     value={dateRange}
                     onChange={(values) => {
@@ -118,24 +149,7 @@ export const DailyRevenue: React.FC = () => {
                         color: "#fffff !important",
                         background: "rgba(255, 255, 255, 0.3)",
                     }}
-                    ranges={{
-                        "This Week": [
-                            dayjs().startOf("week"),
-                            dayjs().endOf("week"),
-                        ],
-                        "Last Month": [
-                            dayjs().startOf("month").subtract(1, "month"),
-                            dayjs().endOf("month").subtract(1, "month"),
-                        ],
-                        "This Month": [
-                            dayjs().startOf("month"),
-                            dayjs().endOf("month"),
-                        ],
-                        "This Year": [
-                            dayjs().startOf("year"),
-                            dayjs().endOf("year"),
-                        ],
-                    }}
+
                     format="YYYY/MM/DD"
                 />
             </TitleArea>

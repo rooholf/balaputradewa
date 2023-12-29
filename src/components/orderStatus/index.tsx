@@ -2,7 +2,7 @@ import { useTranslate } from "@refinedev/core";
 import { Tag } from "antd";
 
 type OrderStatusProps = {
-    status: "Pending" | "Ready" | "On The Way" | "Delivered" | "Cancelled";
+    status: "Pending" | "Transfer" | "Debit" | "Paid" | "Credit" | "Saving" | "Loan" | "Saving Withdrawal" | "Loan Payment";
 };
 
 export const OrderStatus: React.FC<OrderStatusProps> = ({ status }) => {
@@ -13,17 +13,29 @@ export const OrderStatus: React.FC<OrderStatusProps> = ({ status }) => {
         case "Pending":
             color = "orange";
             break;
-        case "Ready":
+        case "Transfer":
             color = "cyan";
             break;
-        case "On The Way":
+        case "Debit":
             color = "green";
             break;
-        case "Delivered":
+        case "Paid":
             color = "blue";
             break;
-        case "Cancelled":
+        case "Credit":
             color = "red";
+            break;
+        case "Saving":
+            color = "purple";
+            break;
+        case "Loan":
+            color = "gold";
+            break;
+        case "Saving Withdrawal":
+            color = "lime";
+            break;
+        case "Loan Payment":
+            color = "magenta";
             break;
     }
 

@@ -20,7 +20,7 @@ import { IProduct } from "../../interfaces";
 const { Text, Paragraph } = Typography;
 
 type ProductItemProps = {
-    item: IProduct;
+    item?: IProduct;
     updateStock?: (changedValue: number, clickedProduct: IProduct) => void;
     editShow: (id?: BaseKey) => void;
 };

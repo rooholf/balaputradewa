@@ -11,8 +11,8 @@ export const useAutoLoginForDemo = () => {
     const login = useCallback(async () => {
         try {
             await authProvider.login({
-                email: "demo@refine.dev",
-                password: "demodemo",
+                email: "user1@example.com",
+                password: "password1",
             });
         } catch (_error) {
         } finally {

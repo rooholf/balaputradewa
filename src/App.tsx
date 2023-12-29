@@ -3,9 +3,14 @@ import { Authenticated, GitHubBanner, Refine } from "@refinedev/core";
 import { RefineKbarProvider } from "@refinedev/kbar";
 import {
     notificationProvider,
-    ThemedLayoutV2,
     ErrorComponent,
 } from "@refinedev/antd";
+
+import { ThemedLayoutV2 } from "./components/layout";
+import { ThemedHeaderV2 } from "./components/layout/header";
+import { ThemedSiderV2 } from "./components/layout/sider";
+import { ThemedTitleV2 } from "./components/layout/title";
+
 import routerProvider, {
     CatchAllNavigate,
     NavigateToResource,
@@ -19,41 +24,58 @@ import {
     ShopOutlined,
     StarOutlined,
     DashboardOutlined,
+    AuditOutlined,
+    DatabaseFilled,
+    HomeOutlined,
+    TransactionOutlined,
+    CarOutlined,
+    ReconciliationOutlined,
+    ReconciliationFilled,
+    BankFilled,
+    GroupOutlined,
+    BankOutlined,
+    InboxOutlined,
 } from "@ant-design/icons";
 import jsonServerDataProvider from "@refinedev/simple-rest";
-import { authProvider } from "./authProvider";
+import { authProvider } from "./authProvider.js";
 
 import "dayjs/locale/de";
 
 import { DashboardPage } from "./pages/dashboard";
 import { OrderList, OrderShow } from "./pages/orders";
 import { AuthPage } from "./pages/auth";
-import { UserList, UserShow } from "./pages/users";
-import {
-    CourierList,
-    CourierShow,
-    CourierCreate,
-    CourierEdit,
-} from "./pages/couriers";
+import { FarmerList, FarmerShow } from "./pages/farmers/index.js";
 import { ProductList } from "./pages/products";
-import { StoreCreate, StoreEdit, StoreList } from "./pages/stores";
-import { CategoryList } from "./pages/categories";
+import { FactoryList, FactoryShow } from "./pages/factories/index.js";
 import { ReviewsList } from "./pages/reviews";
 import { useTranslation } from "react-i18next";
 import { Header, Title, OffLayoutArea } from "./components";
 import { BikeWhiteIcon, PizzaIcon } from "./components/icons";
 import { ConfigProvider } from "./context";
 import { useAutoLoginForDemo } from "./hooks";
+import { dataProvider } from "./rest-data-provider/index.js";
 
 import "@refinedev/antd/dist/reset.css";
+import { SupplierList } from "./pages/suppliers/list.js";
+import { SupplierShow } from "./pages/suppliers/show.js";
+import { VehicleList } from "./pages/vehicles/list.js";
+
+import { AntdInferencer } from "@refinedev/inferencer/antd";
+import { InvoiceCreate } from "./pages/invoices-factory/create.js";
+import { InvoiceList } from "./pages/invoices-factory/list.js";
+import { InvoiceSupplierList } from "./pages/invoices-supplier/list.js";
+import { BankList, BankShow } from "./pages/banks";
+import { ReportList } from "./pages/report";
+import { SupplierInvoiceShow } from "./pages/invoices-supplier";
 
 const App: React.FC = () => {
     // This hook is used to automatically login the user.
     // We use this hook to skip the login page and demonstrate the application more quickly.
     const { loading } = useAutoLoginForDemo();
 
-    const API_URL = "https://api.finefoods.refine.dev";
-    const dataProvider = jsonServerDataProvider(API_URL);
+    const API_URL = "http://localhost:3000/api/v1";
+    const DataProvider = dataProvider(API_URL);
+    const InvDataProvider = dataProvider(API_URL + "/invoices");
 
     const { t, i18n } = useTranslation();
 
@@ -69,12 +91,14 @@ const App: React.FC = () => {
 
     return (
         <BrowserRouter>
-            <GitHubBanner />
             <ConfigProvider>
                 <RefineKbarProvider>
                     <Refine
                         routerProvider={routerProvider}
-                        dataProvider={dataProvider}
+                        dataProvider={{
+                            default: DataProvider,
+                            invoices: InvDataProvider,
+                        }}
                         authProvider={authProvider}
                         i18nProvider={i18nProvider}
                         options={{
@@ -92,72 +116,184 @@ const App: React.FC = () => {
                                 },
                             },
                             {
-                                name: "orders",
-                                list: "/orders",
-                                show: "/orders/show/:id",
+                                name: "transactions",
+                                meta: {
+                                    label: "Transactions",
+                                    icon: <InboxOutlined />,
+                                },
+                            },
+
+                            {
+                                name: "masters",
+                                meta: {
+                                    label: "Data Master",
+                                    icon: <DatabaseFilled />,
+                                },
+                            },
+                            {
+                                name: "invoices",
+                                meta: {
+                                    label: "Invoices",
+                                    icon: <AuditOutlined />,
+                                },
+                            },
+
+                            {
+                                name: "report",
+                                meta: {
+                                    label: "Report",
+                                    icon: <TransactionOutlined />
+                                }
+                            },
+                            {
+                                name: "/factories",
+                                list: "/invoices/factory/create",
+                                meta: {
+                                    icon: <InboxOutlined />,
+                                    label: "Factory",
+                                    parent: "transactions",
+                                },
+                            },
+                            {
+                                name: "factories",
+                                list: "/factories",
+                                show: "/factories/show/:id",
+                                meta: {
+                                    icon: <HomeOutlined />,
+                                    parent: "masters",
+                                },
+                            },
+                            {
+                                name: "suppliers",
+                                list: "/suppliers",
+                                create: "/suppliers/create",
+                                edit: "/suppliers/edit/:id",
+                                show: "/suppliers/show/:id",
                                 meta: {
                                     icon: <ShoppingOutlined />,
+                                    parent: "masters",
                                 },
                             },
                             {
-                                name: "users",
-                                list: "/users",
-                                show: "/users/show/:id",
+                                name: "orders",
+                                list: "/orders",
+                                create: "/orders/create",
+                                edit: "/orders/edit/:id",
+                                show: "/orders/show/:id",
+                                meta: {
+                                    label: "Master Invoice",
+                                    icon: <ReconciliationFilled />,
+                                    parent: "invoices"
+                                },
+                            },
+                            {
+                                name: "invoices/factory",
+                                list: "invoices/factory",
+                                create: "invoices/factory/create",
+                                edit: "invoices/factory/edit/:id",
+                                show: "invoices/factory/show/:id",
+                                meta: {
+                                    label: "Factory Invoice",
+                                    icon: <ReconciliationOutlined />,
+                                    parent: "invoices"
+                                },
+                            },
+                            {
+                                name: "invoices/supplier",
+                                list: "invoices/supplier",
+                                create: "invoices/supplier/create",
+                                edit: "invoices/supplier/edit/:id",
+                                show: "invoices/supplier/show/:id",
+                                meta: {
+                                    label: "Supplier Invoice",
+                                    icon: <ShoppingOutlined />,
+                                    parent: "invoices"
+                                },
+                            },
+                            // {
+                            //     name: "invoices/farmer",
+                            //     list: "invoices/farmer",
+                            //     create: "invoices/farmer/create",
+                            //     edit: "invoices/farmer/edit/:id",
+                            //     show: "invoices/farmer/show/:id",
+                            //     meta: {
+                            //         label: "farmer Invoice",
+                            //         icon: <UsergroupAddOutlined />,
+                            //         parent: "invoices"
+                            //     },
+                            // },
+                            // {
+                            //     name: "transaction/report",
+                            //     list: "/transaction/report",
+                            //     meta: {
+                            //         icon: <BankOutlined />,
+                            //         label: "Report",
+                            //         parent: "report",
+                            //     },
+                            // },
+                            // {
+                            //     name: "transaction",
+                            //     list: "transaction",
+                            //     create: "transaction/create",
+                            //     edit: "transaction/edit/:id",
+                            //     show: "transaction/show/:id",
+                            //     meta: {
+                            //         label: "Bank Transactions",
+                            //         icon: <BankFilled />,
+                            //         canDelete: false,
+                            //         parent: "report"
+
+                            //     },
+                            // },
+                            {
+                                name: "vehicles",
+                                list: "/vehicles",
+                                create: "/vehicles/create",
+                                show: "/vehicles/show/:id",
+                                edit: "/vehicles/edit/:id",
+                                canDelete: true,
+                                meta: {
+                                    icon: <CarOutlined />,
+                                    parent: "masters",
+                                },
+                            },
+
+                            {
+                                name: "farmers",
+                                list: "/farmers",
+                                show: "/farmers/show/:id",
+                                edit: "/farmers/edit/:id",
                                 meta: {
                                     icon: <UsergroupAddOutlined />,
+                                    label: "Farmers",
+                                    parent: "masters",
                                 },
                             },
                             {
-                                name: "products",
-                                list: "/products",
+                                name: "bank",
+                                list: "/bank",
+                                show: "/bank/show/:id",
+                                edit: "/bank/edit/:id",
                                 meta: {
-                                    icon: <PizzaIcon />,
+                                    icon: <BankOutlined />,
+                                    label: "Bank",
+                                    parent: "masters",
                                 },
                             },
-                            {
-                                name: "stores",
-                                list: "/stores",
-                                create: "/stores/create",
-                                edit: "/stores/edit/:id",
-                                meta: {
-                                    icon: <ShopOutlined />,
-                                },
-                            },
-                            {
-                                name: "categories",
-                                list: "/categories",
-                            },
-                            {
-                                name: "couriers",
-                                list: "/couriers",
-                                create: "/couriers/create",
-                                edit: "/couriers/edit/:id",
-                                show: "/couriers/show/:id",
-                                meta: {
-                                    icon: <BikeWhiteIcon />,
-                                },
-                            },
-                            {
-                                name: "reviews",
-                                list: "/reviews",
-                                meta: {
-                                    icon: <StarOutlined />,
-                                },
-                            },
+
                         ]}
                     >
                         <Routes>
                             <Route
                                 element={
                                     <Authenticated
-                                        fallback={
-                                            <CatchAllNavigate to="/login" />
-                                        }
+                                        key={"login"}
+                                        fallback={<CatchAllNavigate to="/login" />}
                                     >
                                         <ThemedLayoutV2
                                             Header={Header}
                                             Title={Title}
-                                            OffLayoutArea={OffLayoutArea}
+                                            Sider={() => <ThemedSiderV2 fixed Title={Title} />}
                                         >
                                             <Outlet />
                                         </ThemedLayoutV2>
@@ -166,69 +302,54 @@ const App: React.FC = () => {
                             >
                                 <Route index element={<DashboardPage />} />
 
-                                <Route path="/orders">
-                                    <Route index element={<OrderList />} />
-                                    <Route
-                                        path="show/:id"
-                                        element={<OrderShow />}
-                                    />
+                                <Route path="/suppliers">
+                                    <Route index element={<SupplierList />} />
+                                    <Route path="show/:id" element={<SupplierShow />} />
+                                </Route>
+                                <Route path="/factories">
+                                    <Route index element={<FactoryList />} />
+                                    <Route path="show/:id" element={<FactoryShow />} />
+                                </Route>
+                                <Route path="/farmers">
+                                    <Route index element={<FarmerList />} />
+                                    <Route path="show/:id" element={<FarmerShow />} />
+                                </Route>
+                                <Route path="/invoices/factory">
+                                    <Route index element={<InvoiceList />} />
+                                    <Route path="show/:id" element={<AntdInferencer />} />
+                                    <Route path="create" element={<InvoiceCreate />} />
+                                    <Route path="edit/:id" element={<AntdInferencer />} />
+                                </Route>
+                                <Route path="/invoices/supplier">
+                                    <Route index element={<InvoiceSupplierList />} />
+                                    <Route path="show/:id" element={<SupplierInvoiceShow />} />
+                                    <Route path="create" element={<AntdInferencer />} />
+                                    <Route path="edit/:id" element={<AntdInferencer />} />
+                                </Route>
+                                <Route path="/transaction">
+                                    <Route index element={<AntdInferencer />} />
+                                    <Route path="show/:id" element={<AntdInferencer />} />
+                                    <Route path="create" element={<AntdInferencer />} />
+                                    <Route path="edit/:id" element={<AntdInferencer />} />
                                 </Route>
 
-                                <Route path="/users">
-                                    <Route index element={<UserList />} />
-                                    <Route
-                                        path="show/:id"
-                                        element={<UserShow />}
-                                    />
+                                <Route path="/bank">
+                                    <Route index element={<BankList />} />
+                                    <Route path="show/:id" element={<BankShow />} />
                                 </Route>
 
-                                <Route
-                                    path="/products"
-                                    element={<ProductList />}
-                                />
-
-                                <Route path="/stores">
-                                    <Route index element={<StoreList />} />
-                                    <Route
-                                        path="create"
-                                        element={<StoreCreate />}
-                                    />
-                                    <Route
-                                        path="edit/:id"
-                                        element={<StoreEdit />}
-                                    />
+                                <Route path="/transaction/report">
+                                    <Route index element={<ReportList />} />
                                 </Route>
 
-                                <Route
-                                    path="/categories"
-                                    element={<CategoryList />}
-                                />
+                                <Route path="/vehicles" element={<VehicleList />} />
+                                <Route path="/orders" element={<OrderList />} />
 
-                                <Route path="/couriers">
-                                    <Route index element={<CourierList />} />
-                                    <Route
-                                        path="create"
-                                        element={<CourierCreate />}
-                                    />
-                                    <Route
-                                        path="edit/:id"
-                                        element={<CourierEdit />}
-                                    />
-                                    <Route
-                                        path="show/:id"
-                                        element={<CourierShow />}
-                                    />
-                                </Route>
-
-                                <Route
-                                    path="/reviews"
-                                    element={<ReviewsList />}
-                                />
                             </Route>
 
                             <Route
                                 element={
-                                    <Authenticated fallback={<Outlet />}>
+                                    <Authenticated key={"dashboard"} fallback={<Outlet />}>
                                         <NavigateToResource resource="dashboard" />
                                     </Authenticated>
                                 }
@@ -240,8 +361,8 @@ const App: React.FC = () => {
                                             type="login"
                                             formProps={{
                                                 initialValues: {
-                                                    email: "demo@refine.dev",
-                                                    password: "demodemo",
+                                                    email: "user1@example.com",
+                                                    password: "password1",
                                                 },
                                             }}
                                         />
@@ -254,8 +375,8 @@ const App: React.FC = () => {
                                             type="register"
                                             formProps={{
                                                 initialValues: {
-                                                    email: "demo@refine.dev",
-                                                    password: "demodemo",
+                                                    email: "user1@example.com",
+                                                    password: "password1",
                                                 },
                                             }}
                                         />
@@ -273,7 +394,7 @@ const App: React.FC = () => {
 
                             <Route
                                 element={
-                                    <Authenticated>
+                                    <Authenticated key={"layout"}>
                                         <ThemedLayoutV2
                                             Header={Header}
                                             Title={Title}

@@ -1,4 +1,4 @@
-import { useTranslate, useUpdate } from "@refinedev/core";
+import { BaseKey, useTranslate, useUpdate } from "@refinedev/core";
 import {
     CheckCircleOutlined,
     CloseCircleOutlined,
@@ -7,12 +7,14 @@ import {
 import { Dropdown, Menu } from "antd";
 
 import { IOrder } from "../../interfaces";
+import React from "react";
 
 type OrderActionProps = {
     record: IOrder;
+    editShow: (id?: BaseKey) => void;
 };
 
-export const OrderActions: React.FC<OrderActionProps> = ({ record }) => {
+export const OrderActions: React.FC<OrderActionProps> = ({ record, editShow }) => {
     const t = useTranslate();
     const { mutate } = useUpdate();
 
@@ -29,7 +31,7 @@ export const OrderActions: React.FC<OrderActionProps> = ({ record }) => {
                     alignItems: "center",
                     fontWeight: 500,
                 }}
-                disabled={record.status.text !== "Pending"}
+                disabled={record.status !== "Pending"}
                 icon={
                     <CheckCircleOutlined
                         style={{
@@ -39,18 +41,7 @@ export const OrderActions: React.FC<OrderActionProps> = ({ record }) => {
                         }}
                     />
                 }
-                onClick={() => {
-                    mutate({
-                        resource: "orders",
-                        id: record.id,
-                        values: {
-                            status: {
-                                id: 2,
-                                text: "Ready",
-                            },
-                        },
-                    });
-                }}
+                onClick={() => editShow(record.invCode)}
             >
                 {t("buttons.accept")}
             </Menu.Item>
@@ -71,8 +62,8 @@ export const OrderActions: React.FC<OrderActionProps> = ({ record }) => {
                     />
                 }
                 disabled={
-                    record.status.text === "Delivered" ||
-                    record.status.text === "Cancelled"
+                    record.status === "Delivered" ||
+                    record.status === "Cancelled"
                 }
                 onClick={() =>
                     mutate({
@@ -92,13 +83,15 @@ export const OrderActions: React.FC<OrderActionProps> = ({ record }) => {
         </Menu>
     );
     return (
-        <Dropdown overlay={moreMenu(record)} trigger={["click"]}>
-            <MoreOutlined
-                onClick={(e) => e.stopPropagation()}
-                style={{
-                    fontSize: 24,
-                }}
-            />
-        </Dropdown>
+        <MoreOutlined
+            onClick={(e) => {
+                e.stopPropagation()
+                editShow(record.invCode)
+            }}
+            style={{
+                fontSize: 24,
+            }}
+        />
+
     );
 };

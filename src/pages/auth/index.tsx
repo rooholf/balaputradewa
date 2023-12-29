@@ -1,5 +1,5 @@
 import { AuthPage as AntdAuthPage, AuthProps } from "@refinedev/antd";
-import { Link } from "react-router-dom";
+import React from "react";
 
 const authWrapperProps = {
     style: {
@@ -17,14 +17,6 @@ const renderAuthContent = (content: React.ReactNode) => {
                 margin: "auto",
             }}
         >
-            <Link to="/">
-                <img
-                    style={{ marginBottom: 26 }}
-                    src="/images/fine-foods-login.svg"
-                    alt="Logo"
-                    width="100%"
-                />
-            </Link>
             {content}
         </div>
     );
@@ -34,7 +26,6 @@ export const AuthPage: React.FC<AuthProps> = ({ type, formProps }) => {
     return (
         <AntdAuthPage
             type={type}
-            wrapperProps={authWrapperProps}
             renderContent={renderAuthContent}
             formProps={formProps}
         />

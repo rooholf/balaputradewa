@@ -71,7 +71,7 @@ export const Header: React.FC = () => {
         value: title,
         label: (
             <Link to={link} style={{ display: "flex", alignItems: "center" }}>
-                <Avatar size={64} src={imageUrl} style={{ minWidth: "64px" }} />
+                {/* <Avatar size={64} src={imageUrl} style={{ minWidth: "64px" }} /> */}
                 <Text style={{ marginLeft: "16px" }}>{title}</Text>
             </Link>
         ),
@@ -90,7 +90,7 @@ export const Header: React.FC = () => {
             onSuccess: (data) => {
                 const orderOptionGroup = data.data.map((item) =>
                     renderItem(
-                        `${item.store.title} / #${item.orderNumber}`,
+                        `${item.supplier.name} / #${item.invCode}`,
                         "/images/default-order-img.png",
                         `/orders/show/${item.id}`,
                     ),
@@ -108,67 +108,67 @@ export const Header: React.FC = () => {
         },
     });
 
-    const { refetch: refetchStores } = useList<IStore>({
-        resource: "stores",
-        config: {
-            filters: [{ field: "q", operator: "contains", value }],
-        },
-        queryOptions: {
-            enabled: false,
-            onSuccess: (data) => {
-                const storeOptionGroup = data.data.map((item) =>
-                    renderItem(
-                        item.title,
-                        "/images/default-store-img.png",
-                        `/stores/edit/${item.id}`,
-                    ),
-                );
-                if (storeOptionGroup.length > 0) {
-                    setOptions((prevOptions) => [
-                        ...prevOptions,
-                        {
-                            label: renderTitle(t("stores.stores")),
-                            options: storeOptionGroup,
-                        },
-                    ]);
-                }
-            },
-        },
-    });
+    // const { refetch: refetchStores } = useList<IStore>({
+    //     resource: "stores",
+    //     config: {
+    //         filters: [{ field: "q", operator: "contains", value }],
+    //     },
+    //     queryOptions: {
+    //         enabled: false,
+    //         onSuccess: (data) => {
+    //             const storeOptionGroup = data.data.map((item) =>
+    //                 renderItem(
+    //                     item.title,
+    //                     "/images/default-store-img.png",
+    //                     `/stores/edit/${item.id}`,
+    //                 ),
+    //             );
+    //             if (storeOptionGroup.length > 0) {
+    //                 setOptions((prevOptions) => [
+    //                     ...prevOptions,
+    //                     {
+    //                         label: renderTitle(t("stores.stores")),
+    //                         options: storeOptionGroup,
+    //                     },
+    //                 ]);
+    //             }
+    //         },
+    //     },
+    // });
 
-    const { refetch: refetchCouriers } = useList<ICourier>({
-        resource: "couriers",
-        config: {
-            filters: [{ field: "q", operator: "contains", value }],
-        },
-        queryOptions: {
-            enabled: false,
-            onSuccess: (data) => {
-                const courierOptionGroup = data.data.map((item) =>
-                    renderItem(
-                        `${item.name} ${item.surname}`,
-                        item.avatar[0].url,
-                        `/couriers/show/${item.id}`,
-                    ),
-                );
-                if (courierOptionGroup.length > 0) {
-                    setOptions((prevOptions) => [
-                        ...prevOptions,
-                        {
-                            label: renderTitle(t("couriers.couriers")),
-                            options: courierOptionGroup,
-                        },
-                    ]);
-                }
-            },
-        },
-    });
+    // const { refetch: refetchCouriers } = useList<ICourier>({
+    //     resource: "couriers",
+    //     config: {
+    //         filters: [{ field: "q", operator: "contains", value }],
+    //     },
+    //     queryOptions: {
+    //         enabled: false,
+    //         onSuccess: (data) => {
+    //             const courierOptionGroup = data.data.map((item) =>
+    //                 renderItem(
+    //                     `${item.name} ${item.surname}`,
+    //                     item.avatar[0].url,
+    //                     `/couriers/show/${item.id}`,
+    //                 ),
+    //             );
+    //             if (courierOptionGroup.length > 0) {
+    //                 setOptions((prevOptions) => [
+    //                     ...prevOptions,
+    //                     {
+    //                         label: renderTitle(t("couriers.couriers")),
+    //                         options: courierOptionGroup,
+    //                     },
+    //                 ]);
+    //             }
+    //         },
+    //     },
+    // });
 
     useEffect(() => {
         setOptions([]);
         refetchOrders();
-        refetchCouriers();
-        refetchStores();
+        // refetchCouriers();
+        // refetchStores();
     }, [value]);
 
     const menuItems: MenuProps["items"] = [...(i18n.languages || [])]

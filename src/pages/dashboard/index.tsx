@@ -10,6 +10,7 @@ import {
     RecentOrders,
     TrendingMenu,
 } from "../../components";
+import { CreateFactoryOrder } from "../../components/createFactoryOrder";
 
 const { Text } = Typography;
 
@@ -70,27 +71,11 @@ export const DashboardPage: React.FC = () => {
                     </Col>
                 </Row>
             </Col>
-            <Col xl={17} lg={16} md={24} sm={24} xs={24}>
+
+            {/* <Col md={24} >
                 <Card
                     bodyStyle={{
-                        height: 550,
-                        padding: 0,
-                    }}
-                    title={
-                        <Text
-                            strong /* style={{ fontSize: 24, fontWeight: 800 }} */
-                        >
-                            {t("dashboard.deliveryMap.title")}
-                        </Text>
-                    }
-                >
-                    <DeliveryMap />
-                </Card>
-            </Col>
-            <Col xl={7} lg={8} md={24} sm={24} xs={24}>
-                <Card
-                    bodyStyle={{
-                        height: 550,
+                        height: 600,
                         overflowY: "scroll",
                     }}
                     title={
@@ -99,25 +84,17 @@ export const DashboardPage: React.FC = () => {
                         </Text>
                     }
                 >
-                    <OrderTimeline />
+                    <CreateFactoryOrder />
                 </Card>
-            </Col>
-            <Col xl={17} lg={16} md={24} sm={24} xs={24}>
+            </Col> */}
+
+            <Col md={24} sm={24} xs={24}>
                 <Card
                     title={
                         <Text strong>{t("dashboard.recentOrders.title")}</Text>
                     }
                 >
                     <RecentOrders />
-                </Card>
-            </Col>
-            <Col xl={7} lg={8} md={24} sm={24} xs={24}>
-                <Card
-                    title={
-                        <Text strong>{t("dashboard.trendingMenus.title")}</Text>
-                    }
-                >
-                    <TrendingMenu />
                 </Card>
             </Col>
         </Row>

@@ -1,5 +1,5 @@
 import { useNavigation, useTranslate } from "@refinedev/core";
-import { useTable } from "@refinedev/antd";
+import { DateField, useDrawerForm, useTable } from "@refinedev/antd";
 import { Typography, Table, Avatar, Space, Tag } from "antd";
 import {
     RecentOrdersColumn,
@@ -9,79 +9,88 @@ import {
     TitleWrapper,
 } from "./styled";
 
-import { OrderActions } from "../../../components";
+import { OrderActions, OrderStatus } from "../../../components";
 
 import { IOrder } from "../../../interfaces";
+import { EditOrder } from "../../editOrder";
 
 const { Text, Paragraph } = Typography;
 
+
+
 export const RecentOrders: React.FC = () => {
     const t = useTranslate();
-    const { tableProps } = useTable<IOrder>({
-        resource: "orders",
+    const { tableProps, tableQueryResult } = useTable<IOrder>({
+        resource: "recentOrders",
         initialSorter: [
             {
-                field: "createdAt",
+                field: "created_at",
                 order: "desc",
             },
         ],
         initialPageSize: 4,
         permanentFilter: [
             {
-                field: "status.text",
+                field: "_status",
                 operator: "eq",
                 value: "Pending",
             },
         ],
         syncWithLocation: false,
+
     });
 
-    const { show } = useNavigation();
+    const {
+        drawerProps: editDrawerProps,
+        formProps: editFormProps,
+        saveButtonProps: editSaveButtonProps,
+        show: editShow,
+        id: editId,
+    } = useDrawerForm<IOrder>({
+        action: "create",
+        resource: "recentOrders",
+        redirect: "list",
+        invalidates: ["all"],
+        warnWhenUnsavedChanges: false,
+    });
 
-    return (
+    return (<>
         <Table
             {...tableProps}
             pagination={{ ...tableProps.pagination, simple: true }}
             showHeader={false}
             rowKey="id"
+            onRow={(record) => ({
+                onClick: () => {
+                    editShow(record.invCode);
+                },
+            })
+            }
         >
-            <Table.Column<IOrder>
-                key="avatar"
-                render={(_, record) => (
-                    <Avatar
-                        size={{
-                            xs: 60,
-                            lg: 108,
-                            xl: 132,
-                            xxl: 144,
-                        }}
-                        src={record?.products[0]?.images[0].url}
-                    />
-                )}
-            />
             <RecentOrdersColumn
                 key="summary"
                 render={(_, record) => (
                     <TitleWrapper>
-                        <Title strong>{record.products[0]?.name}</Title>
+                        <Title strong><DateField value={record?.invDate} format="LLL" /></Title>
                         <Paragraph
                             ellipsis={{
                                 rows: 2,
-                                tooltip: record.products[0]?.description,
+                                tooltip: record.invDate,
                                 symbol: <span>...</span>,
                             }}
                         >
-                            {record.products[0]?.description}
+                            {record.supplier?.name}
                         </Paragraph>
-
-                        <OrderId
-                            strong
-                            onClick={() => {
-                                show("orders", record.id);
+                        <Paragraph
+                            ellipsis={{
+                                rows: 2,
+                                tooltip: record.invDate,
+                                symbol: <span>...</span>,
                             }}
+                            style={{ fontSize: "12px" }}
                         >
-                            #{record.orderNumber}
-                        </OrderId>
+                            {record.invCode}
+                        </Paragraph>
                     </TitleWrapper>
                 )}
             />
@@ -91,8 +100,8 @@ export const RecentOrders: React.FC = () => {
                     <Space direction="vertical">
                         <Title
                             strong
-                        >{`${record.courier.name} ${record.courier.surname}`}</Title>
-                        <Text>{record.adress.text}</Text>
+                        >Quantity</Title>
+                        <Text>{parseInt(record.qty)} Kg</Text>
                     </Space>
                 )}
             />
@@ -109,15 +118,16 @@ export const RecentOrders: React.FC = () => {
                         <Price
                             strong
                             options={{
-                                currency: "USD",
+                                currency: "IDR",
                                 style: "currency",
                                 notation: "standard",
+                                maximumFractionDigits: 0,
                             }}
-                            value={value / 100}
+                            value={record.invTotal}
                         />
-                        <Tag color="orange">
-                            {t(`enum.orderStatuses.${record.status.text}`)}
-                        </Tag>
+
+                        <OrderStatus status={record.status as "Pending" | "Ready" | "On The Way" | "Paid" | "Cancelled"} />
+
                     </Space>
                 )}
             />
@@ -125,8 +135,18 @@ export const RecentOrders: React.FC = () => {
                 fixed="right"
                 key="actions"
                 align="center"
-                render={(_, record) => <OrderActions record={record} />}
+                render={(_, record) => <OrderActions record={record} editShow={editShow} />}
             />
         </Table>
+        <EditOrder
+            drawerProps={editDrawerProps}
+            formProps={editFormProps}
+            saveButtonProps={editSaveButtonProps}
+            editId={editId}
+            isRecentOrders={true}
+            tableQueryResult={tableQueryResult}
+        />
+    </>
+
     );
 };

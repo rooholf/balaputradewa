@@ -123,56 +123,6 @@
         "editError": "Error when editing {{resource}} (status code: {{statusCode}})",
         "importProgress": "Importing: {{processed}}/{{total}}"
     },
-    "categories": {
-        "categories": "Categories",
-        "titles": {
-            "list": "Categories"
-        },
-        "fields": {
-            "id": "ID",
-            "title": "Title",
-            "isActive": "Active"
-        }
-    },
-    "couriers": {
-        "couriers": "Couriers",
-        "titles": {
-            "create": "Create Courier",
-            "list": "Couriers",
-            "edit": "Edit Courier"
-        },
-        "fields": {
-            "id": "ID",
-            "avatar": {
-                "label": "Avatar",
-                "description": "Click or drag avatar image to this area to upload."
-            },
-            "name": "Name",
-            "surname": "Surname",
-            "gender": {
-                "label": "Gender",
-                "male": "Male",
-                "female": "Female"
-            },
-            "gsm": "Phone",
-            "email": "E-Mail",
-            "address": "Address",
-            "createdAt": "CreatedAt",
-            "isActive": "Is Active",
-            "images": {
-                "label": "Images",
-                "description": "Add user picture",
-                "validation": "must be 480x480 px"
-            },
-            "store": "Store",
-            "vehicle": "Vehicle",
-            "accountNumber": "Account Number"
-        },
-        "steps": {
-            "content": "Content",
-            "relations": "Relations"
-        }
-    },
     "dashboard": {
         "title": "Dashboard",
         "deliveryMap": {
@@ -214,9 +164,14 @@
         "orderStatuses": {
             "Pending": "Pending",
             "Ready": "Ready",
-            "On The Way": "On the way",
-            "Delivered": "Delivered",
-            "Cancelled": "Cancelled"
+            "Debit": "Debit",
+            "Transfer": "Transfer",
+            "Credit": "Credit",
+            "Paid": "Paid",
+            "Loan": "Loan",
+            "Saving": "Saving",
+            "Saving Withdrawal": "Saving Withdrawal",
+            "Loan Payment": "Loan Payment"
         }
     },
     "orders": {
@@ -227,12 +182,18 @@
         },
         "fields": {
             "orderNumber": "Order Number",
-            "orderID": "Order ID",
+            "orderID": "ID",
             "status": "Status",
             "store": "Store",
-            "user": "User",
+            "user": "Farmer",
             "products": "Products",
             "createdAt": "CreatedAt",
+            "supplierPrice": "Supplier Price",
+            "profits": "Profits",
+            "invCode": "Invoice Code",
+            "invDate": "Order Date",
+            "invTotal": "Total",
+            "qty": "Quantity",
             "amount": "Amount",
             "itemsAmount": "{{amount}} items"
         },
@@ -240,7 +201,7 @@
             "title": "Filters",
             "search": {
                 "label": "Search",
-                "placeholder": "Order Number, User, etc."
+                "placeholder": "Order Number, Farmer, etc."
             },
             "status": {
                 "label": "Status",
@@ -251,10 +212,10 @@
                 "placeholder": "Search Stores"
             },
             "user": {
-                "label": "User",
+                "label": "Farmer",
                 "placeholder": "Search Users"
             },
-            "createdAt": {
+            "created_at": {
                 "label": "Created At"
             },
             "submit": "Filter"
@@ -302,7 +263,7 @@
             "list": "Reviews"
         },
         "fields": {
-            "user": "User",
+            "user": "Farmer",
             "orderId": "Order ID",
             "review": "Review",
             "rating": "Rating"
@@ -337,60 +298,178 @@
         "all": "All",
         "productSearch": "Product Search"
     },
-    "users": {
-        "users": "Users",
+    "farmers": {
+        "farmers": "Farmers",
         "titles": {
-            "edit": "Edit User",
-            "list": "Users",
-            "show": "User Detail"
+            "edit": "Edit Farmer",
+            "list": "Farmers",
+            "show": "Farmer Detail"
         },
         "fields": {
             "id": "ID",
+            "code": "Code",
+            "name": "Name",
+            "address": "Address",
             "avatar": {
                 "label": "Avatar",
                 "description": "Click or drag avatar image to this area to upload."
             },
-            "firstName": "First Name",
-            "lastName": "Last Name",
-            "gender": {
-                "label": "Gender",
-                "Male": "Male",
-                "Female": "Female"
-            },
-            "gsm": "Gsm Number",
-            "createdAt": "CreatedAt",
-            "isActive": {
-                "label": "Is Active",
-                "true": "Yes",
-                "false": "No"
-            }
+            "phone": "Phone number",
+            "createdAt": "CreatedAt"
         },
         "filter": {
             "title": "Filters",
             "search": {
                 "label": "Search",
-                "placeholder": "FirstName, lastName, gsm, etc."
+                "placeholder": "Code, Name, Phone, etc."
             },
             "createdAt": {
                 "label": "Created At"
             },
-            "gender": {
-                "label": "Gender",
-                "placeholder": "Gender",
-                "male": "Male",
-                "female": "Female"
+            "submit": "Filter"
+        }
+    },
+    "vehicles": {
+        "vehicles": "Vehicles",
+        "titles": {
+            "edit": "Edit Vehicle",
+            "list": "Vehicles",
+            "show": "Vehicle Detail"
+        },
+        "fields": {
+            "plate": "Plate",
+            "color": "Color",
+            "brand": "Brand",
+            "chassis": "Chassis",
+            "createdAt": "CreatedAt"
+        },
+        "filter": {
+            "title": "Filters",
+            "search": {
+                "label": "Search",
+                "placeholder": "Plate, Brand, etc."
             },
-            "isActive": {
-                "label": "Active",
-                "placeholder": "Active status",
-                "true": "Yes",
-                "false": "No"
+            "createdAt": {
+                "label": "Created At"
             },
             "submit": "Filter"
+        }
+    },
+    "suppliers": {
+        "suppliers": "Suppliers",
+        "titles": {
+            "edit": "Edit Supplier",
+            "list": "Suppliers",
+            "show": "Supplier Detail"
         },
-        "addresses": {
-            "addresses": "Addresses",
-            "address": "Address"
+        "fields": {
+            "id": "ID",
+            "code": "Code",
+            "name": "Name",
+            "createdAt": "CreatedAt"
+        },
+        "filter": {
+            "title": "Filters",
+            "search": {
+                "label": "Search",
+                "placeholder": "Code, Name, etc."
+            },
+            "createdAt": {
+                "label": "Created At"
+            },
+            "submit": "Filter"
+        }
+    },
+    "factory": {
+        "factory": "factory",
+        "titles": {
+            "edit": "Edit Factory",
+            "list": "Factory Invoices",
+            "show": "Factory Detail"
+        },
+        "fields": {
+            "id": "ID",
+            "code": "Code",
+            "name": "Name",
+            "invCode": "Invoice Code",
+            "invDate": "Invoice Date",
+            "invTotal": "Total(Rp)",
+            "status": "Status",
+            "factory": "Factory",
+            "qty": "Quantity",
+            "createdAt": "CreatedAt"
+        },
+        "filter": {
+            "title": "Filters",
+            "search": {
+                "label": "Search",
+                "placeholder": "Code, Name, etc."
+            },
+            "createdAt": {
+                "label": "Created At"
+            },
+            "submit": "Filter"
+        }
+    },
+    "supplier": {
+        "supplier": "Supplier Invoice",
+        "titles": {
+            "edit": "Edit Supplier",
+            "list": "Supplier Invoices",
+            "show": "Supplier Detail"
+        },
+        "fields": {
+            "id": "ID",
+            "invCode": "Invoice Code",
+            "invDate": "Invoice Date",
+            "invTotal": "Total(Rp)",
+            "status": "Status",
+            "supplier": "Supplier",
+            "qty": "Quantity",
+            "createdAt": "CreatedAt"
+        },
+        "filter": {
+            "title": "Filters",
+            "search": {
+                "label": "Search",
+                "placeholder": "Code, Name, etc."
+            },
+            "createdAt": {
+                "label": "Created At"
+            },
+            "submit": "Filter"
+        }
+    },
+    "transaction": {
+        "transaction": "Transaction",
+        "titles": {
+            "edit": "Edit transaction",
+            "list": "transaction Invoices",
+            "show": "transaction Detail"
+        },
+        "fields": {
+            "id": "ID",
+            "transactionCode": "Transaction Code",
+            "transactionDate": "Transaction Date",
+            "transactionTotal": "Total(Rp)",
+            "transactionType": "Transaction Type",
+            "amount": "Amount",
+            "status": "Status",
+            "transaction": "Transaction",
+            "qty": "Quantity",
+            "created_at": "CreatedAt",
+            "updated_at": "UpdatedAt"
+        },
+        "filter": {
+            "title": "Filters",
+            "search": {
+                "label": "Search",
+                "placeholder": "Code, Name, etc."
+            },
+            "createdAt": {
+                "label": "Created At"
+            },
+            "submit": "Filter"
         }
     }
 }

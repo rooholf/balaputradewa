@@ -1,16 +1,28 @@
-import { AuthBindings } from "@refinedev/core";
+import { AuthBindings, useCustomMutation } from "@refinedev/core";
 import { notification } from "antd";
 import { disableAutoLogin, enableAutoLogin } from "./hooks";
+import axios from "axios";
 
 export const TOKEN_KEY = "refine-auth";
 
 export const authProvider: AuthBindings = {
     login: async ({ email, password }) => {
-        enableAutoLogin();
-        localStorage.setItem(TOKEN_KEY, `${email}-${password}`);
+        const response = await axios.post("http://localhost:3000/api/v1/auth/login", { email, password });
+        if (response.status === 200) {
+            enableAutoLogin();
+            localStorage.setItem(TOKEN_KEY, `${response.data.access_token}`);
+            localStorage.setItem("user", JSON.stringify(response.data));
+            return {
+                success: true,
+                redirectTo: "/",
+            };
+        }
         return {
-            success: true,
-            redirectTo: "/",
+            success: false,
+            error: {
+                message: "Invalid credentials",
+                name: "Invalid credentials",
+            },
         };
     },
     register: async ({ email, password }) => {
@@ -69,24 +81,27 @@ export const authProvider: AuthBindings = {
 
         return {
             authenticated: false,
+            redirectTo: "/login",
             error: {
                 message: "Check failed",
                 name: "Token not found",
             },
             logout: true,
-            redirectTo: "/login",
+
         };
     },
     getPermissions: async () => null,
     getIdentity: async () => {
         const token = localStorage.getItem(TOKEN_KEY);
+        const userData = localStorage.getItem("user");
         if (!token) {
             return null;
         }
 
+        const parsedUserData = JSON.parse(userData || "{}");
         return {
-            id: 1,
-            name: "James Sullivan",
+            id: parsedUserData.id,
+            name: parsedUserData.email,
             avatar: "https://i.pravatar.cc/150",
         };
     },

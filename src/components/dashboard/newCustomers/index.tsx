@@ -13,47 +13,47 @@ export const NewCustomers: React.FC = () => {
     const t = useTranslate();
     const API_URL = useApiUrl();
 
-    const url = `${API_URL}/newCustomers`;
-    const { data, isLoading } = useCustom<{
-        data: ISalesChart[];
-        total: number;
-        trend: number;
-    }>({ url, method: "get" });
+    // const url = `${API_URL}/newCustomers`;
+    // const { data, isLoading } = useCustom<{
+    //     data: ISalesChart[];
+    //     total: number;
+    //     trend: number;
+    // }>({ url, method: "get" });
 
     const { Text, Title } = Typography;
 
-    const config = useMemo(() => {
-        const config: ColumnConfig = {
-            data: data?.data.data || [],
-            loading: isLoading,
-            padding: 0,
-            xField: "date",
-            yField: "value",
-            maxColumnWidth: 16,
-            columnStyle: {
-                radius: [4, 4, 0, 0],
-            },
-            color: "rgba(255, 255, 255, 0.5)",
-            tooltip: {
-                customContent: (title, data) => {
-                    return `<div style="padding: 8px 4px; font-size:16px; font-weight:600">${data[0]?.value}</div>`;
-                },
-            },
+    // const config = useMemo(() => {
+    //     const config: ColumnConfig = {
+    //         data: [],
+    //         loading: isLoading,
+    //         padding: 0,
+    //         xField: "date",
+    //         yField: "value",
+    //         maxColumnWidth: 16,
+    //         columnStyle: {
+    //             radius: [4, 4, 0, 0],
+    //         },
+    //         color: "rgba(255, 255, 255, 0.5)",
+    //         tooltip: {
+    //             customContent: (title, data) => {
+    //                 return `<div style="padding: 8px 4px; font-size:16px; font-weight:600">${data[0]?.value}</div>`;
+    //             },
+    //         },
 
-            xAxis: {
-                label: null,
-                line: null,
-                tickLine: null,
-            },
-            yAxis: {
-                label: null,
-                grid: null,
-                tickLine: null,
-            },
-        };
+    //         xAxis: {
+    //             label: null,
+    //             line: null,
+    //             tickLine: null,
+    //         },
+    //         yAxis: {
+    //             label: null,
+    //             grid: null,
+    //             tickLine: null,
+    //         },
+    //     };
 
-        return config;
-    }, [data]);
+    //     return config;
+    // }, [data]);
 
     return (
         <ConfigProvider
@@ -65,10 +65,12 @@ export const NewCustomers: React.FC = () => {
                 <Header>
                     <Title level={3}>{t("dashboard.newCustomers.title")}</Title>
                     <HeaderNumbers>
-                        <Text strong>{data?.data.total ?? 0}</Text>
+                        {/* <Text strong>{data?.data.total ?? 0}</Text> */}
+                        <Text strong>0</Text>
+
                         <div>
-                            <Text strong>{data?.data.trend ?? 0}%</Text>
-                            {(data?.data?.trend ?? 0) > 0 ? (
+                            {/* <Text strong>{data?.data.trend ?? 0}%</Text> */}
+                            {(0 ?? 0) > 0 ? (
                                 <IncreaseIcon />
                             ) : (
                                 <DecreaseIcon />
@@ -76,11 +78,11 @@ export const NewCustomers: React.FC = () => {
                         </div>
                     </HeaderNumbers>
                 </Header>
-                <Column
+                {/* <Column
                     style={{ padding: 0, height: 162 }}
                     appendPadding={10}
                     {...config}
-                />
+                /> */}
             </NewCustomersWrapper>
         </ConfigProvider>
     );
