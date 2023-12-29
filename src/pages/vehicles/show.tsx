@@ -193,20 +193,20 @@ export const SupplierShow: React.FC<IResourceComponentsProps> = () => {
                                     <Popover
                                         content={
                                             <ul>
-                                                {record.products.map(
+                                                {/* {record.products.map(
                                                     (product) => (
                                                         <li key={product.id}>
                                                             {product.name}
                                                         </li>
                                                     ),
-                                                )}
+                                                )} */}
                                             </ul>
                                         }
                                         title="Products"
                                         trigger="hover"
                                     >
                                         {t("orders.fields.itemsAmount", {
-                                            amount: record.products.length,
+                                            // amount: record.products.length,
                                         })}
                                     </Popover>
                                 )}

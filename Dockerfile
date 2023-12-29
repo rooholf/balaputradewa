@@ -13,7 +13,6 @@ RUN npm install
 
 COPY . /opt/app
 
-RUN npm run bootstrap -- --scope finefoods-antd -- --force
 RUN npm run build -- --scope finefoods-antd
 
 FROM node:18-alpine
@@ -25,4 +24,4 @@ ENV NODE_ENV=production
 
 RUN npm install -g serve
 
-CMD serve -l 5000
+CMD node --max-old-space-size=4096 serve -l 5000

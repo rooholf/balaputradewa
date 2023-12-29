@@ -334,7 +334,7 @@ export const SupplierList: React.FC<IResourceComponentsProps> = () => {
                         <Form.Item label="Price" name="price">
                             <InputNumber addonBefore="Rp" />
                         </Form.Item>
-                        <Form.Item label="Is PPN" name="isPPN">
+                        <Form.Item label="Is PPN" name="isPPN" initialValue={false}>
                             <Switch />
                         </Form.Item>
 

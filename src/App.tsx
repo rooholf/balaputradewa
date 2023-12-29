@@ -42,12 +42,10 @@ import { authProvider } from "./authProvider.js";
 import "dayjs/locale/de";
 
 import { DashboardPage } from "./pages/dashboard";
-import { OrderList, OrderShow } from "./pages/orders";
+import { OrderList, } from "./pages/orders";
 import { AuthPage } from "./pages/auth";
 import { FarmerList, FarmerShow } from "./pages/farmers/index.js";
-import { ProductList } from "./pages/products";
 import { FactoryList, FactoryShow } from "./pages/factories/index.js";
-import { ReviewsList } from "./pages/reviews";
 import { useTranslation } from "react-i18next";
 import { Header, Title, OffLayoutArea } from "./components";
 import { BikeWhiteIcon, PizzaIcon } from "./components/icons";
@@ -65,7 +63,6 @@ import { InvoiceCreate } from "./pages/invoices-factory/create.js";
 import { InvoiceList } from "./pages/invoices-factory/list.js";
 import { InvoiceSupplierList } from "./pages/invoices-supplier/list.js";
 import { BankList, BankShow } from "./pages/banks";
-import { ReportList } from "./pages/report";
 import { SupplierInvoiceShow } from "./pages/invoices-supplier";
 
 const App: React.FC = () => {
@@ -338,9 +335,9 @@ const App: React.FC = () => {
                                     <Route path="show/:id" element={<BankShow />} />
                                 </Route>
 
-                                <Route path="/transaction/report">
+                                {/* <Route path="/transaction/report">
                                     <Route index element={<ReportList />} />
-                                </Route>
+                                </Route> */}
 
                                 <Route path="/vehicles" element={<VehicleList />} />
                                 <Route path="/orders" element={<OrderList />} />

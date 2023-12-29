@@ -126,7 +126,7 @@ export const RecentOrders: React.FC = () => {
                             value={record.invTotal}
                         />
 
-                        <OrderStatus status={record.status as "Pending" | "Ready" | "On The Way" | "Paid" | "Cancelled"} />
+                        <OrderStatus status={record.status as "Pending" | "Paid" | "Saving" | "Saving Withdrawal" | "Loan" | "Loan Payment" | "Transfer" | "Debit" | "Credit"} />
 
                     </Space>
                 )}

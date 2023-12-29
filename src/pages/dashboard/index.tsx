@@ -5,12 +5,8 @@ import {
     DailyRevenue,
     DailyOrders,
     NewCustomers,
-    DeliveryMap,
-    OrderTimeline,
     RecentOrders,
-    TrendingMenu,
 } from "../../components";
-import { CreateFactoryOrder } from "../../components/createFactoryOrder";
 
 const { Text } = Typography;
 
