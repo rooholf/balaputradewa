@@ -2,7 +2,7 @@
   "name": "finefoods-antd",
   "version": "3.25.0",
   "private": true,
-  "homepage": "https://balaputradewa.com",
+  "homepage": "https://rooholf.github.io/Balaputradewa-App",
   "dependencies": {
     "@ant-design/charts": "^1.4.3",
     "@ant-design/graphs": "^1.2.7",
