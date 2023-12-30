@@ -7,7 +7,7 @@ export const TOKEN_KEY = "refine-auth";
 
 export const authProvider: AuthBindings = {
     login: async ({ email, password }) => {
-        const response = await axios.post("http://182.253.193.67:3000/api/v1/auth/login", { email, password });
+        const response = await axios.post("https://balaputradewa-api.fly.dev//api/v1/auth/login", { email, password });
         if (response.status === 200) {
             enableAutoLogin();
             localStorage.setItem(TOKEN_KEY, `${response.data.access_token}`);
