@@ -64,11 +64,6 @@ export default defineConfig({
                         return 'components'
                     }
                     if (
-                        id.includes('@types')
-                    ) {
-                        return '@types'
-                    }
-                    if (
                         id.includes('src/pages')
                     ) {
                         return 'pages'
