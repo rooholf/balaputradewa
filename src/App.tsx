@@ -104,20 +104,20 @@ const App: React.FC = () => {
                         }}
                         notificationProvider={notificationProvider}
                         resources={[
-                            {
-                                name: "dashboard",
-                                list: "/",
-                                meta: {
-                                    label: "Dashboard",
-                                    icon: <DashboardOutlined />,
-                                },
-                            },
+                            // {
+                            //     name: "dashboard",
+                            //     list: "/",
+                            //     meta: {
+                            //         label: "Dashboard",
+                            //         icon: <DashboardOutlined />,
+                            //     },
+                            // },
                             {
                                 name: "transactions",
                                 list: "/invoices/factory/create",
                                 meta: {
                                     label: "Transactions",
-                                    icon: <InboxOutlined />,
+                                    icon: <DashboardOutlined />
                                 },
                             },
 
