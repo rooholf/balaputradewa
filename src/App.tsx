@@ -112,14 +112,7 @@ const App: React.FC = () => {
                             //         icon: <DashboardOutlined />,
                             //     },
                             // },
-                            {
-                                name: "transactions",
-                                list: "/invoices/factory/create",
-                                meta: {
-                                    label: "Transactions",
-                                    icon: <DashboardOutlined />
-                                },
-                            },
+
 
                             {
                                 name: "masters",
@@ -144,13 +137,21 @@ const App: React.FC = () => {
                                 }
                             },
                             {
-                                name: "/factories",
+                                name: "transactions",
                                 list: "/invoices/factory/create",
                                 meta: {
-                                    icon: <InboxOutlined />,
-                                    label: "Factory",
+                                    label: "Transactions",
+                                    icon: <DashboardOutlined />
                                 },
                             },
+                            // {
+                            //     name: "/factories",
+                            //     list: "/invoices/factory/create",
+                            //     meta: {
+                            //         icon: <InboxOutlined />,
+                            //         label: "Factory",
+                            //     },
+                            // },
                             {
                                 name: "factories",
                                 list: "/factories",
