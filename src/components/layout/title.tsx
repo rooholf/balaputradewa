@@ -5,7 +5,7 @@ import type { RefineLayoutThemedTitleProps } from "@refinedev/antd";
 
 const { useToken } = theme;
 
-const defaultText = "refine Project";
+const defaultText = "balaputradewa";
 
 const defaultIcon = (
   <svg

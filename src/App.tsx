@@ -4,6 +4,7 @@ import { RefineKbarProvider } from "@refinedev/kbar";
 import {
     notificationProvider,
     ErrorComponent,
+    Show,
 } from "@refinedev/antd";
 
 import { ThemedLayoutV2 } from "./components/layout";
@@ -27,13 +28,9 @@ import {
     CarOutlined,
     ReconciliationOutlined,
     ReconciliationFilled,
-    BankFilled,
-    GroupOutlined,
     BankOutlined,
-    InboxOutlined,
     FormOutlined,
 } from "@ant-design/icons";
-import jsonServerDataProvider from "@refinedev/simple-rest";
 import { authProvider } from "./authProvider.js";
 
 import "dayjs/locale/de";
@@ -45,7 +42,6 @@ import { FarmerList, FarmerShow } from "./pages/farmers/index.js";
 import { FactoryList, FactoryShow } from "./pages/factories/index.js";
 import { useTranslation } from "react-i18next";
 import { Header, Title, OffLayoutArea } from "./components";
-import { BikeWhiteIcon, PizzaIcon } from "./components/icons";
 import { ConfigProvider } from "./context";
 import { useAutoLoginForDemo } from "./hooks";
 import { dataProvider } from "./rest-data-provider/index.js";
@@ -61,6 +57,7 @@ import { InvoiceList } from "./pages/invoices-factory/list.js";
 import { InvoiceSupplierList } from "./pages/invoices-supplier/list.js";
 import { BankList, BankShow } from "./pages/banks";
 import { SupplierInvoiceShow } from "./pages/invoices-supplier";
+import { Alert, Spin } from "antd";
 
 const App: React.FC = () => {
     // This hook is used to automatically login the user.
@@ -80,7 +77,9 @@ const App: React.FC = () => {
     };
 
     if (loading) {
-        return null;
+        return (
+            <ErrorComponent />
+        )
     }
 
     return (
@@ -88,7 +87,6 @@ const App: React.FC = () => {
             <ConfigProvider>
                 <RefineKbarProvider>
                     <Refine
-
                         routerProvider={routerProvider}
                         dataProvider={{
                             default: DataProvider,
@@ -277,6 +275,7 @@ const App: React.FC = () => {
                                     <Authenticated
                                         key={"login"}
                                         fallback={<CatchAllNavigate to="/login" />}
+                                        loading={<ErrorComponent />}
                                     >
                                         <ThemedLayoutV2
                                             Header={Header}
@@ -335,7 +334,12 @@ const App: React.FC = () => {
 
                             <Route
                                 element={
-                                    <Authenticated key={"dashboard"} fallback={<Outlet />}>
+                                    <Authenticated
+                                        key={"dashboard"}
+                                        fallback={<Outlet />}
+                                        loading={<ErrorComponent />}
+
+                                    >
                                         <NavigateToResource resource="dashboard" />
                                     </Authenticated>
                                 }
@@ -380,7 +384,10 @@ const App: React.FC = () => {
 
                             <Route
                                 element={
-                                    <Authenticated key={"layout"}>
+                                    <Authenticated
+                                        key={"layout"}
+                                        loading={<ErrorComponent />}
+                                    >
                                         <ThemedLayoutV2
                                             Header={Header}
                                             Title={Title}
