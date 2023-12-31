@@ -7,9 +7,7 @@ import {
 } from "@refinedev/antd";
 
 import { ThemedLayoutV2 } from "./components/layout";
-import { ThemedHeaderV2 } from "./components/layout/header";
 import { ThemedSiderV2 } from "./components/layout/sider";
-import { ThemedTitleV2 } from "./components/layout/title";
 
 import routerProvider, {
     CatchAllNavigate,
@@ -21,8 +19,6 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import {
     ShoppingOutlined,
     UsergroupAddOutlined,
-    ShopOutlined,
-    StarOutlined,
     DashboardOutlined,
     AuditOutlined,
     DatabaseFilled,
@@ -35,6 +31,7 @@ import {
     GroupOutlined,
     BankOutlined,
     InboxOutlined,
+    FormOutlined,
 } from "@ant-design/icons";
 import jsonServerDataProvider from "@refinedev/simple-rest";
 import { authProvider } from "./authProvider.js";
@@ -91,6 +88,7 @@ const App: React.FC = () => {
             <ConfigProvider>
                 <RefineKbarProvider>
                     <Refine
+
                         routerProvider={routerProvider}
                         dataProvider={{
                             default: DataProvider,
@@ -104,15 +102,14 @@ const App: React.FC = () => {
                         }}
                         notificationProvider={notificationProvider}
                         resources={[
-                            // {
-                            //     name: "dashboard",
-                            //     list: "/",
-                            //     meta: {
-                            //         label: "Dashboard",
-                            //         icon: <DashboardOutlined />,
-                            //     },
-                            // },
-
+                            {
+                                name: "dashboard",
+                                list: "/",
+                                meta: {
+                                    label: "Dashboard",
+                                    icon: <DashboardOutlined />,
+                                },
+                            },
 
                             {
                                 name: "masters",
@@ -141,17 +138,10 @@ const App: React.FC = () => {
                                 list: "/invoices/factory/create",
                                 meta: {
                                     label: "Transactions",
-                                    icon: <DashboardOutlined />
+                                    icon: <FormOutlined />
                                 },
                             },
-                            // {
-                            //     name: "/factories",
-                            //     list: "/invoices/factory/create",
-                            //     meta: {
-                            //         icon: <InboxOutlined />,
-                            //         label: "Factory",
-                            //     },
-                            // },
+
                             {
                                 name: "factories",
                                 list: "/factories",
@@ -336,9 +326,7 @@ const App: React.FC = () => {
                                     <Route path="show/:id" element={<BankShow />} />
                                 </Route>
 
-                                {/* <Route path="/transaction/report">
-                                    <Route index element={<ReportList />} />
-                                </Route> */}
+
 
                                 <Route path="/vehicles" element={<VehicleList />} />
                                 <Route path="/orders" element={<OrderList />} />
