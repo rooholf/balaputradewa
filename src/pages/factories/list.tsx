@@ -103,14 +103,6 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
     const t = useTranslate();
 
 
-    // const { selectProps: supplierSelectProps, queryResult: supplierQueryResult } = useSelect({
-    //     resource: "suppliers",
-    // });
-
-    // const supplierOptions = supplierQueryResult?.data?.data?.map((item: BaseRecord) => ({
-    //     label: `${item.code} -${item.name}`,
-    //     value: item.id,
-    // }));
 
 
 
@@ -160,13 +152,7 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
                     breadcrumb={null}
                 >
                     <Table {...tableProps} rowKey="id" >
-                        {/* <Table.Column
-                            align="center"
-                            key="avatar"
-                            dataIndex={["avatar"]}
-                            title={t("users.fields.avatar.label")}
-                            render={(value) => <Avatar src={value[0].url} />}
-                        /> */}
+
                         <Table.Column
                             key="code"
                             dataIndex="code"
@@ -178,20 +164,7 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
                             title={t("factory.fields.name")}
                         />
 
-                        {/* <Table.Column
-                            key="gender"
-                            dataIndex="gender"
-                            title={t("users.fields.gender.label")}
-                            render={(value) =>
-                                t(`users.fields.gender.${value}`)
-                            }
-                        />
-                        <Table.Column
-                            key="isActive"
-                            dataIndex="isActive"
-                            title={t("users.fields.isActive.label")}
-                            render={(value) => <BooleanField value={value} />}
-                        /> */}
+
                         <Table.Column
                             key="created_at"
                             dataIndex="created_at"
@@ -222,8 +195,7 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
                                         required: true,
                                     },
                                     {
-                                        min: 5,
-                                        max: 5,
+                                        min: 3,
                                     }
                                 ]
                             }>
@@ -248,20 +220,7 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
                         <Form.Item label="Price" name="price">
                             <InputNumber addonBefore="Rp" />
                         </Form.Item>
-                        {/* <Form.Item label="Is PPN" name="isPPN">
-                            <Switch />
-                        </Form.Item> */}
-                        {/* <Form.Item
-                            label={"Supplier"}
-                            name={"supplierId"}
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <Select {...supplierSelectProps} options={supplierOptions} />
-                        </Form.Item> */}
+
                     </Form>
                 </Modal>
             </Col>

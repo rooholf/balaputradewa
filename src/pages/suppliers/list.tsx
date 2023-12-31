@@ -193,13 +193,7 @@ export const SupplierList: React.FC<IResourceComponentsProps> = () => {
                     breadcrumb={null}
                 >
                     <Table {...tableProps} rowKey="id" >
-                        {/* <Table.Column
-                            align="center"
-                            key="avatar"
-                            dataIndex={["avatar"]}
-                            title={t("users.fields.avatar.label")}
-                            render={(value) => <Avatar src={value[0].url} />}
-                        /> */}
+
                         <Table.Column
                             key="code"
                             dataIndex="code"

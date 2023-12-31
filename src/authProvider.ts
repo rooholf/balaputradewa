@@ -9,7 +9,7 @@ export const authProvider: AuthBindings = {
     login: async ({ email, password }) => {
         const response = await axios.post("https://balaputradewa-api.fly.dev/api/v1/auth/login", { email, password });
         if (response.status === 200) {
-            enableAutoLogin();
+            // enableAutoLogin();
             localStorage.setItem(TOKEN_KEY, `${response.data.access_token}`);
             localStorage.setItem("user", JSON.stringify(response.data));
             return {

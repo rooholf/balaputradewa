@@ -114,6 +114,7 @@ const App: React.FC = () => {
                             },
                             {
                                 name: "transactions",
+                                list: "/invoices/factory/create",
                                 meta: {
                                     label: "Transactions",
                                     icon: <InboxOutlined />,
@@ -148,7 +149,6 @@ const App: React.FC = () => {
                                 meta: {
                                     icon: <InboxOutlined />,
                                     label: "Factory",
-                                    parent: "transactions",
                                 },
                             },
                             {
