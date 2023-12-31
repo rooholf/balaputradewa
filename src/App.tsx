@@ -77,9 +77,7 @@ const App: React.FC = () => {
     };
 
     if (loading) {
-        return (
-            <ErrorComponent />
-        )
+        return null
     }
 
     return (
@@ -275,7 +273,7 @@ const App: React.FC = () => {
                                     <Authenticated
                                         key={"login"}
                                         fallback={<CatchAllNavigate to="/login" />}
-                                        loading={<ErrorComponent />}
+
                                     >
                                         <ThemedLayoutV2
                                             Header={Header}
@@ -337,7 +335,7 @@ const App: React.FC = () => {
                                     <Authenticated
                                         key={"dashboard"}
                                         fallback={<Outlet />}
-                                        loading={<ErrorComponent />}
+
 
                                     >
                                         <NavigateToResource resource="dashboard" />
@@ -386,7 +384,7 @@ const App: React.FC = () => {
                                 element={
                                     <Authenticated
                                         key={"layout"}
-                                        loading={<ErrorComponent />}
+
                                     >
                                         <ThemedLayoutV2
                                             Header={Header}

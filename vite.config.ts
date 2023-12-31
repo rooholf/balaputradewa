@@ -18,32 +18,6 @@ export default defineConfig({
                     if (id.includes('dayjs')) {
                         return 'dayjs'
                     }
-                    if (id.includes('@refinedev/core') ||
-                        id.includes('@refinedev/inferencer') ||
-                        id.includes('@refinedev/kbar')
-                    ) {
-                        return '@refinedev/core'
-                    }
-                    if (id.includes('@refinedev/antd')) {
-                        return '@refinedev/antd'
-                    }
-
-                    if (id.includes('@ant-design/charts') ||
-                        id.includes('@ant-design/graphs') ||
-                        id.includes('@ant-design/icons')) {
-                        return '@ant-design'
-                    }
-
-                    if (id.includes('@emotion/react') ||
-                        id.includes('@emotion/styled')) {
-                        return '@emotion'
-                    }
-
-
-                    if (id.includes('@refinedev/react-router-v6')) {
-                        return '@refinedev/react-router-v6'
-                    }
-
                     if (id.includes('i18next') ||
                         id.includes('i18next-browser-languagedetector') ||
                         id.includes('i18next-xhr-backend') ||
