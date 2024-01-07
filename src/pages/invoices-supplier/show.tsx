@@ -74,7 +74,7 @@ export const SupplierInvoiceShow: React.FC<IResourceComponentsProps> = () => {
 
     const taxes = subTotal * 0.11;
 
-    const total = subTotal + taxes;
+    const total = subTotal;
 
 
     const invoiceRender = (
@@ -136,24 +136,6 @@ export const SupplierInvoiceShow: React.FC<IResourceComponentsProps> = () => {
                     </Col>
                 </Row>
 
-                <Row gutter={[16, 16]}>
-                    <Col span={12}>
-                        <Text>Taxes (11%) :</Text>
-                    </Col>
-                    <Col span={12}>
-                        {record?.supplierPrice?.isPPN ?
-                            <NumberField
-                                locale={"id"}
-                                options={{
-                                    currency: "IDR",
-                                    style: "currency",
-                                    maximumFractionDigits: 0,
-                                }}
-                                value={taxes}
-                            />
-                            : 0}
-                    </Col>
-                </Row>
 
                 <Row gutter={[16, 16]} >
                     <Col span={12}>
