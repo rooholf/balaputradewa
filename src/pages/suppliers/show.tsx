@@ -245,6 +245,7 @@ export const SupplierShow: React.FC<IResourceComponentsProps> = () => {
                                 key="profits"
                                 dataIndex="profits"
                                 title={t("orders.fields.profits")}
+                                width={150}
                                 render={(value) => {
                                     return <NumberField
                                         options={{
@@ -256,19 +257,7 @@ export const SupplierShow: React.FC<IResourceComponentsProps> = () => {
                                     />;
                                 }}
                             />
-                            <Table.Column
-                                key="created_at"
-                                dataIndex="created_at"
-                                title={t("orders.fields.createdAt")}
-                                render={(value) => (
-                                    <DateField value={value} format="LL" />
-                                )}
-                                sorter
-                                defaultSortOrder={getDefaultSortOrder(
-                                    "created_at",
-                                    sorter,
-                                )}
-                            />
+
 
                             <Table.Column
                                 key="invCode"

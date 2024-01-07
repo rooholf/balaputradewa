@@ -220,7 +220,9 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
                         <Form.Item label="Price" name="price">
                             <InputNumber addonBefore="Rp" />
                         </Form.Item>
-
+                        <Form.Item label="Is PPN" name="isPPN">
+                            <Switch />
+                        </Form.Item>
                     </Form>
                 </Modal>
             </Col>

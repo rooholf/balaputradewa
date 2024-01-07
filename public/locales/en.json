@@ -171,7 +171,8 @@
             "Loan": "Loan",
             "Saving": "Saving",
             "Saving Withdrawal": "Saving Withdrawal",
-            "Loan Payment": "Loan Payment"
+            "Loan Payment": "Loan Payment",
+            "Expense": "Expense"
         }
     },
     "orders": {

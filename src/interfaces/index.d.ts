@@ -50,11 +50,13 @@ export interface IFactory {
     id: number;
     code: string;
     name: string;
+    isPPN: boolean;
     prices: IPrice[];
     vehicles: IVehicle[];
     address: string;
     created_at: string;
     factoryOrders: IOrder[];
+    orders: IOrder[];
     bankAccounts: IBankAccount[];
     suppliers: ISupplier[];
 
@@ -169,10 +171,13 @@ export interface IVehicleOrders {
     vehicle: IVehicle;
     plate: string;
     supplierOrderId: number;
+    supplierOrder: IOrder;
     factoryOrdersId: number;
 }
 export interface IOrder {
     id: number;
+    factory: IFactory
+    factoryPrice: IPrice
     status: string;
     invCode: string;
     invTotal: number;

@@ -251,10 +251,10 @@ export const BankShow: React.FC<IResourceComponentsProps> = () => {
                                     htmlType="submit"
                                     onClick={() => {
                                         createModalShow()
-                                        return setTransactionType("Credit")
+                                        return setTransactionType("Expense")
                                     }}
                                 >
-                                    {"Tarik Dana"}
+                                    {"Transaksi"}
                                 </Button>
 
 

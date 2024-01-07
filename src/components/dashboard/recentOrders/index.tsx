@@ -126,7 +126,7 @@ export const RecentOrders: React.FC = () => {
                             value={record.invTotal}
                         />
 
-                        <OrderStatus status={record.status as "Pending" | "Paid" | "Saving" | "Saving Withdrawal" | "Loan" | "Loan Payment" | "Transfer" | "Debit" | "Credit"} />
+                        <OrderStatus status={record.status as "Pending" | "Paid" | "Saving" | "Saving Withdrawal" | "Loan" | "Loan Payment" | "Transfer" | "Debit" | "Credit" | "Expense"} />
 
                     </Space>
                 )}
@@ -143,7 +143,7 @@ export const RecentOrders: React.FC = () => {
             formProps={editFormProps}
             saveButtonProps={editSaveButtonProps}
             editId={editId}
-            isRecentOrders={true}
+
             tableQueryResult={tableQueryResult}
         />
     </>

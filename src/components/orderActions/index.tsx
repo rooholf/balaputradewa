@@ -12,9 +12,10 @@ import React from "react";
 type OrderActionProps = {
     record: IOrder;
     editShow: (id?: BaseKey) => void;
+    setSelectedInv?: any;
 };
 
-export const OrderActions: React.FC<OrderActionProps> = ({ record, editShow }) => {
+export const OrderActions: React.FC<OrderActionProps> = ({ record, editShow, setSelectedInv }) => {
     const t = useTranslate();
     const { mutate } = useUpdate();
 
@@ -82,11 +83,15 @@ export const OrderActions: React.FC<OrderActionProps> = ({ record, editShow }) =
             </Menu.Item>
         </Menu>
     );
+
+
+
     return (
         <MoreOutlined
             onClick={(e) => {
                 e.stopPropagation()
                 editShow(record.invCode)
+                setSelectedInv(record.invCode)
             }}
             style={{
                 fontSize: 24,

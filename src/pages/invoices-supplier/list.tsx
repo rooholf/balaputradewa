@@ -182,19 +182,28 @@ export const InvoiceSupplierList: React.FC<IResourceComponentsProps> = () => {
                             key="id"
                             dataIndex="id"
                             title={t("orders.fields.orderID")}
-                            render={(value) => <TextField value={value} />}
+                            render={(value, item, index) => <TextField value={++index} />}
                             defaultSortOrder={getDefaultSortOrder(
-                                "status",
+                                "id",
                                 sorter,
                             )}
                             sorter
                         />
+
                         <Table.Column
                             key="invCode"
                             dataIndex="invCode"
                             ellipsis
+                            width={150}
                             title={t("orders.fields.orderNumber")}
                             render={(value) => <TextField value={value} />}
+                        />
+                        <Table.Column
+                            key="noRef"
+                            dataIndex="factoryOrder"
+                            ellipsis
+                            title={t("NoRef")}
+                            render={(value) => <TextField value={value.noRef} />}
                         />
 
                         <Table.Column

@@ -24,15 +24,18 @@ type EditOrderProps = {
     formProps: FormProps;
     saveButtonProps: ButtonProps;
     editId?: BaseKey;
-    isRecentOrders?: boolean;
+    isFactory?: boolean;
     tableQueryResult?: any;
+    record?: any;
+    onFinishOrder?: any;
 };
 
 export const EditOrder: React.FC<EditOrderProps> = ({
     drawerProps,
     editId,
-    isRecentOrders,
+    isFactory,
     tableQueryResult,
+    onFinishOrder
 }) => {
     const t = useTranslate();
     const breakpoint = Grid.useBreakpoint();
@@ -46,7 +49,10 @@ export const EditOrder: React.FC<EditOrderProps> = ({
         value: item.id,
     }));
 
-    const resource = "invoices/supplier/" + encodeURIComponent(String(editId))
+    console.log(isFactory)
+    const resource = isFactory
+        ? "invoices/factory/" + encodeURIComponent(String(editId))
+        : "invoices/supplier/" + encodeURIComponent(String(editId))
 
     const {
         formProps,
@@ -54,8 +60,8 @@ export const EditOrder: React.FC<EditOrderProps> = ({
     } = useDrawerForm({
         action: "create",
         resource: resource,
-        invalidates: ["list"],
-        redirect: "show",
+        invalidates: ["all"],
+        redirect: "list",
         warnWhenUnsavedChanges: false,
     });
 
@@ -64,15 +70,19 @@ export const EditOrder: React.FC<EditOrderProps> = ({
 
     const onFinishHandler = async (values: any) => {
         await onFinish(values);
-        queryResult.refetch();
-        tableQueryResult.refetch();
+
         invalidate({
             resource: 'invoices/supplier',
             invalidates: ["resourceAll"],
         })
+        invalidate({
+            resource: 'orders',
+            invalidates: ["resourceAll"],
+        })
+        console.log(values)
         drawerProps.onClose?.({} as React.MouseEvent | React.KeyboardEvent) ?? (() => { });
-
     };
+
 
     return (
         <Drawer

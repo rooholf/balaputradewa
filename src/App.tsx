@@ -58,6 +58,7 @@ import { InvoiceSupplierList } from "./pages/invoices-supplier/list.js";
 import { BankList, BankShow } from "./pages/banks";
 import { SupplierInvoiceShow } from "./pages/invoices-supplier";
 import { Alert, Spin } from "antd";
+import { FactoryInvoiceShow } from "./pages/invoices-factory/show";
 
 const App: React.FC = () => {
     // This hook is used to automatically login the user.
@@ -301,7 +302,7 @@ const App: React.FC = () => {
                                 </Route>
                                 <Route path="/invoices/factory">
                                     <Route index element={<InvoiceList />} />
-                                    <Route path="show/:id" element={<AntdInferencer />} />
+                                    <Route path="show/:id" element={<FactoryInvoiceShow />} />
                                     <Route path="create" element={<InvoiceCreate />} />
                                     <Route path="edit/:id" element={<AntdInferencer />} />
                                 </Route>

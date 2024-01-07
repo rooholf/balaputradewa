@@ -185,7 +185,7 @@ export const SupplierInvoiceShow: React.FC<IResourceComponentsProps> = () => {
             headerButtons={({ defaultButtons }) => (
                 <>
                     {defaultButtons}
-                    <SaveButton onClick={() => { show() }} />
+                    <SaveButton onClick={() => { show() }}  >Print</SaveButton>
                 </>
             )}
             canDelete={true}

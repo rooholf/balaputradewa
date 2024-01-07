@@ -69,7 +69,6 @@ export const InvoiceCreate: React.FC<IResourceComponentsProps> = () => {
                     vehicleId: item.vehicleId,
                     qty: parseInt(item.qty),
                 })),
-                bankAccountId: values.bankAccountId,
                 transactionDate: values.transactionDate,
                 noRef: values.noRef,
             });
@@ -413,7 +412,7 @@ export const InvoiceCreate: React.FC<IResourceComponentsProps> = () => {
                 )}
             </Form.List>
 
-            <Form.Item
+            {/* <Form.Item
                 label={"Bank Account"}
                 name={"bankAccountId"}
                 rules={[
@@ -423,7 +422,7 @@ export const InvoiceCreate: React.FC<IResourceComponentsProps> = () => {
                 ]}
             >
                 <Select {...bankSelectProps} options={bankOptions} />
-            </Form.Item>
+            </Form.Item> */}
             <Modal title="Create New Vehicle" {...createModalProps} width={300} >
                 <Form {...createFormProps} onFinish={onFinishCreate}>
                     <Form.Item
@@ -499,7 +498,7 @@ export const InvoiceCreate: React.FC<IResourceComponentsProps> = () => {
                     <br />
                     <Typography.Text>Transaction Date</Typography.Text>
                     <br />
-                    <Typography.Text>Bank Account</Typography.Text>
+                    {/* <Typography.Text>Bank Account</Typography.Text> */}
                     <br />
                 </Col>
                 <Col span={7}>
@@ -515,9 +514,9 @@ export const InvoiceCreate: React.FC<IResourceComponentsProps> = () => {
                         : {getFieldValue('transactionDate')?.format("DD MMM YYYY")}
                     </Typography.Text>
                     <br />
-                    <Typography.Text >
+                    {/* <Typography.Text >
                         : {getFieldValue('bankAccountId') && bankOptions?.find((item) => item.value === getFieldValue('bankAccountId'))?.label}
-                    </Typography.Text>
+                    </Typography.Text> */}
                     <br />
                 </Col>
             </Row>

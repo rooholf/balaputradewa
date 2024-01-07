@@ -49,6 +49,7 @@ import { IOrder, IOrderFilterVariables, IPrice, IFactory, ISalesChart } from "..
 import { useState } from "react";
 import { PdfLayout } from "../../components/pdf/pdfLayout";
 import React from "react";
+import { FactoryPdf } from "../../components/pdf/factoryPdf";
 
 const { useBreakpoint } = Grid;
 
@@ -173,9 +174,8 @@ export const FactoryShow: React.FC<IResourceComponentsProps> = () => {
                                     <DateField value={factory?.created_at} format="LL" />
                                 </Typography.Text>
                                 <Typography.Text>
-                                    <CalendarOutlined />
-                                    {" "}
-                                    {factory?.bankAccounts[0]?.accountName}
+                                    {"Jumlah Order : "}
+                                    {factory?.orders.length}
                                 </Typography.Text>
                             </Space>
                         </Space>
@@ -288,7 +288,7 @@ export const FactoryShow: React.FC<IResourceComponentsProps> = () => {
                         </Table>
                     </List>
                     <Modal {...modalProps} width="60%" footer={null} style={{ top: 10 }}>
-                        <PdfLayout record={record} />
+                        <FactoryPdf record={record as IOrder} />
                     </Modal>
                     <Row gutter={[16, 16]}>
                         <Col xl={16} lg={24} xs={24}>

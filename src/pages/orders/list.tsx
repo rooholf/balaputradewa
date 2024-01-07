@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
     useTranslate,
     IResourceComponentsProps,
@@ -7,6 +7,7 @@ import {
     useNavigation,
     HttpError,
     getDefaultFilter,
+    useInvalidate,
 } from "@refinedev/core";
 
 import {
@@ -19,6 +20,7 @@ import {
     useSelect,
     ExportButton,
     useDrawerForm,
+    EditButton,
 } from "@refinedev/antd";
 import { SearchOutlined } from "@ant-design/icons";
 import {
@@ -49,7 +51,7 @@ import { EditOrder } from "../../components/editOrder";
 const { RangePicker } = DatePicker;
 
 export const OrderList: React.FC<IResourceComponentsProps> = () => {
-    const { tableProps, sorter, searchFormProps, filters } = useTable<
+    const { tableProps, sorter, searchFormProps, filters, tableQueryResult } = useTable<
         IOrder,
         HttpError,
         IOrderFilterVariables
@@ -92,6 +94,11 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
         syncWithLocation: false,
     });
 
+    const [isFactory, setIsFactory] = useState(false)
+
+
+
+
     const t = useTranslate();
     const { show } = useNavigation();
 
@@ -121,14 +128,16 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
         id: editId,
     } = useDrawerForm<IOrder>({
         action: "create",
-        resource: "orders",
-        redirect: "list",
-        warnWhenUnsavedChanges: false,
+        resource: "invoices/supplier",
+        invalidates: ["list"],
+        warnWhenUnsavedChanges: true,
     });
 
     const Actions: React.FC = () => (
         <ExportButton onClick={triggerExport} loading={isLoading} />
     );
+
+
 
     return (
         <Row gutter={[16, 16]}>
@@ -160,18 +169,37 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                         size="small"
                         onRow={(record) => {
                             return {
-                                onClick: () => {
-                                    <OrderActions record={record} editShow={editShow} />
+                                onClick: (e) => {
+                                    e.stopPropagation();
+                                    editShow(record.invCode);
                                 },
                             };
                         }}
                     >
+                        <Table.Column
+                            key="id"
+                            dataIndex="id"
+                            title={t("orders.fields.orderID")}
+                            render={(value, item, index) => <TextField value={++index} />}
+                            defaultSortOrder={getDefaultSortOrder(
+                                "id",
+                                sorter,
+                            )}
+                            sorter
+                        />
+                        <Table.Column
+                            key="ownedBy"
+                            dataIndex="ownedBy"
+                            title={t("Invoice For")}
+                            render={(value) => <TextField value={value} />}
+                        />
                         <Table.Column
                             key="invCode"
                             dataIndex="invCode"
                             title={t("orders.fields.orderNumber")}
                             render={(value) => <TextField value={value} />}
                         />
+
                         <Table.Column<IOrder>
                             key="status"
                             dataIndex={"status"}
@@ -179,7 +207,6 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                             render={(value) => {
                                 return <OrderStatus status={value} />;
                             }}
-
                         />
                         <Table.Column
                             align="right"
@@ -199,16 +226,7 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                                 );
                             }}
                         />
-                        {/* <Table.Column
-                            key="store.id"
-                            dataIndex={["store", "title"]}
-                            title={t("orders.fields.store")}
-                        />
-                        <Table.Column
-                            key="user.fullName"
-                            dataIndex={["user", "fullName"]}
-                            title={t("orders.fields.user")}
-                        /> */}
+
                         <Table.Column<IOrder>
                             key="VehicleOrders"
                             dataIndex="vehicleOrders"
@@ -251,7 +269,20 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                             key="actions"
                             align="center"
                             render={(_value, record) => (
-                                <OrderActions record={record} editShow={editShow} />
+                                <EditButton
+                                    hideText
+                                    recordItemId={record.id}
+                                    onClick={() => {
+                                        if (record.supplier) {
+                                            setIsFactory(false)
+                                        } else (
+                                            setIsFactory(true)
+                                        )
+                                        editShow
+                                        editFormProps.id = record.id as unknown as string;
+                                    }}
+                                    style={{ marginLeft: 10 }}
+                                />
                             )}
                         />
                     </Table>
@@ -262,6 +293,7 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                 formProps={editFormProps}
                 saveButtonProps={editSaveButtonProps}
                 editId={editId}
+                isFactory={isFactory}
             />
         </Row>
 

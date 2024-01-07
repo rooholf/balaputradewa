@@ -20,6 +20,9 @@ import {
     NumberField,
     ExportButton,
     useDrawerForm,
+    EditButton,
+    ShowButton,
+    getDefaultSortOrder,
 } from "@refinedev/antd";
 import { SearchOutlined } from "@ant-design/icons";
 import {
@@ -123,9 +126,9 @@ export const InvoiceList: React.FC<IResourceComponentsProps> = () => {
         id: editId,
     } = useDrawerForm<IOrder>({
         action: "create",
-        resource: "orders",
-        redirect: "list",
-        warnWhenUnsavedChanges: false,
+        resource: "invoices/factory",
+        invalidates: ["list"],
+        warnWhenUnsavedChanges: true,
     });
 
     const Actions: React.FC = () => (
@@ -187,7 +190,12 @@ export const InvoiceList: React.FC<IResourceComponentsProps> = () => {
                             key="id"
                             dataIndex="id"
                             title={t("orders.fields.orderID")}
-                            render={(value) => <TextField value={value} />}
+                            render={(value, item, index) => <TextField value={++index} />}
+                            defaultSortOrder={getDefaultSortOrder(
+                                "id",
+                                sorter,
+                            )}
+                            sorter
                         />
                         <Table.Column
                             key="invCode"
@@ -275,7 +283,20 @@ export const InvoiceList: React.FC<IResourceComponentsProps> = () => {
                             key="actions"
                             align="center"
                             render={(_value, record) => (
-                                <OrderActions record={record} editShow={editShow} />
+                                <>
+                                    <ShowButton hideText recordItemId={record.id} />
+                                    <EditButton
+                                        hideText
+                                        recordItemId={record.id}
+                                        onClick={() => {
+                                            editShow
+                                            editFormProps.id = record.id as unknown as string;
+
+                                        }}
+                                        style={{ marginLeft: 10 }}
+                                    />
+
+                                </>
                             )}
 
                         />
@@ -287,6 +308,7 @@ export const InvoiceList: React.FC<IResourceComponentsProps> = () => {
                 formProps={editFormProps}
                 saveButtonProps={editSaveButtonProps}
                 editId={editId}
+                isFactory={true}
             />
         </Row>
 
