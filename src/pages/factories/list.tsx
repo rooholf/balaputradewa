@@ -121,7 +121,13 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
     });
 
     const onFinishCreate = (values: any) => {
-        onFinishCreateModal(values);
+        onFinishCreateModal({
+            code: values.code,
+            name: values.name,
+            price: values.price,
+            isPPN: values.isPPN ? true : false,
+        });
+
         close();
     }
 
