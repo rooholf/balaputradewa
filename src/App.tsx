@@ -65,7 +65,7 @@ const App: React.FC = () => {
     // We use this hook to skip the login page and demonstrate the application more quickly.
     const { loading } = useAutoLoginForDemo();
 
-    const API_URL = "http://localhost:3000/api/v1";
+    const API_URL = "https://balaputradewa-api.fly.dev/api/v1";
     const DataProvider = dataProvider(API_URL);
     const InvDataProvider = dataProvider(API_URL + "/invoices");
 
