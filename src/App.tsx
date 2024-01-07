@@ -348,12 +348,12 @@ const App: React.FC = () => {
                                     element={
                                         <AuthPage
                                             type="login"
-                                            formProps={{
-                                                initialValues: {
-                                                    email: "user1@example.com",
-                                                    password: "password1",
-                                                },
-                                            }}
+                                        // formProps={{
+                                        //     initialValues: {
+                                        //         email: "user1@example.com",
+                                        //         password: "password1",
+                                        //     },
+                                        // }}
                                         />
                                     }
                                 />
@@ -362,12 +362,12 @@ const App: React.FC = () => {
                                     element={
                                         <AuthPage
                                             type="register"
-                                            formProps={{
-                                                initialValues: {
-                                                    email: "user1@example.com",
-                                                    password: "password1",
-                                                },
-                                            }}
+                                        // formProps={{
+                                        //     // initialValues: {
+                                        //     //     email: "user1@example.com",
+                                        //     //     password: "password1",
+                                        //     // },
+                                        // }}
                                         />
                                     }
                                 />
