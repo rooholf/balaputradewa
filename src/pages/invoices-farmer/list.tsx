@@ -92,7 +92,10 @@ export const InvoiceSupplierList: React.FC<IResourceComponentsProps> = () => {
             return filters;
         },
         syncWithLocation: false,
-
+        pagination: {
+            mode: "client",
+            pageSize: 8
+        },
 
     });
 

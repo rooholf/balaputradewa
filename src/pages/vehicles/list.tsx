@@ -91,6 +91,10 @@ export const VehicleList: React.FC<IResourceComponentsProps> = () => {
             return filters;
         },
         syncWithLocation: false,
+        pagination: {
+            mode: "client",
+            pageSize: 8
+        },
     });
 
     const t = useTranslate();

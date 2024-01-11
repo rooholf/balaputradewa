@@ -90,7 +90,12 @@ export const FarmerList: React.FC<IResourceComponentsProps> = () => {
 
             return filters;
         },
+        pagination: {
+            mode: "client",
+            pageSize: 8
+        },
         syncWithLocation: false,
+
     });
 
     const t = useTranslate();
@@ -138,7 +143,7 @@ export const FarmerList: React.FC<IResourceComponentsProps> = () => {
                             createModalShow();
                         },
                     }}>
-                    <Table {...tableProps} rowKey="id">
+                    <Table {...tableProps} rowKey="id" >
                         <Table.Column
                             key="phone"
                             dataIndex="phone"

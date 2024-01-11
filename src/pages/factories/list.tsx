@@ -98,6 +98,10 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
             return filters;
         },
         syncWithLocation: false,
+        pagination: {
+            mode: "client",
+            pageSize: 8
+        },
     });
 
     const t = useTranslate();
@@ -127,6 +131,7 @@ export const FactoryList: React.FC<IResourceComponentsProps> = () => {
             price: values.price,
             isPPN: values.isPPN ? true : false,
         });
+
 
         close();
     }
