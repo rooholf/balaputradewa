@@ -182,6 +182,9 @@ export interface IOrder {
     invCode: string;
     invTotal: number;
     invDate: string;
+    dpp: number;
+    pph: number;
+    ppn: number;
     qty: string;
     supplier: ISupplier;
     supplierPrice: IPrice;

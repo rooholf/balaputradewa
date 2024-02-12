@@ -52,6 +52,8 @@ export const dataProvider = (
     );
 
     const total = +headers["x-total-count"];
+
+
     return {
       data,
       total: total || data.length,
