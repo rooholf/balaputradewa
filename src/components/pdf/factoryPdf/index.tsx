@@ -170,13 +170,11 @@ export const FactoryPdf: React.FC<PdfProps> = ({ record }) => {
                         </View>
 
                         <View style={styles.totalContainer}>
-                            <Text style={styles.totalText}>DPP :  {parseCurrency(record?.vehicleOrders.reduce((prev: any, cur: any): any => {
-                                return prev + cur.qty * record?.factoryPrice?.price as number;
-                            }, 0) as number, "currency")}
+                            <Text style={styles.totalText}>DPP :  {parseCurrency(record!.dpp, "currency")}
                             </Text>
-                            <Text style={styles.totalText}>PPH (0.25%): {parseCurrency(record!.invTotal * 0.025, "currency")}
+                            <Text style={styles.totalText}>PPH (0.25%): {parseCurrency(record!.pph, "currency")}
                             </Text>
-                            <Text style={styles.totalText}>PPN (11%): {record?.factory?.isPPN ? parseCurrency(record?.invTotal * 0.11, "currency") : "0"}
+                            <Text style={styles.totalText}>PPN (11%): {parseCurrency(record!.ppn, "currency")}
                             </Text>
                             <Text style={styles.totalText}>
                                 Total:  {parseCurrency(record?.invTotal as number, "currency")}

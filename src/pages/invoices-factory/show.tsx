@@ -68,17 +68,14 @@ export const FactoryInvoiceShow: React.FC<IResourceComponentsProps> = () => {
         total: parseCurrency(item.qty * record?.factoryPrice?.price as number),
     }));
 
-    const subTotal = record?.vehicleOrders.reduce(
-        (total: number, item: IVehicleOrders) => total + item.qty, 0)
-        * record?.factoryPrice?.price
-        || 0;
+    const subTotal = record?.dpp
 
-    const pph = subTotal * 0.025
+    const pph = record?.pph
 
-    const taxes = subTotal * 0.11;
+    const taxes = record?.ppn;
 
 
-    const total = subTotal + pph + taxes;
+    const total = subTotal + taxes - pph;
 
 
     const invoiceRender = (
@@ -145,17 +142,17 @@ export const FactoryInvoiceShow: React.FC<IResourceComponentsProps> = () => {
                         <Text>PPH (0.25%) :</Text>
                     </Col>
                     <Col span={12}>
-                        {record?.factory?.isPPN ?
-                            <NumberField
-                                locale={"id"}
-                                options={{
-                                    currency: "IDR",
-                                    style: "currency",
-                                    maximumFractionDigits: 0,
-                                }}
-                                value={pph}
-                            />
-                            : 0}
+
+                        <NumberField
+                            locale={"id"}
+                            options={{
+                                currency: "IDR",
+                                style: "currency",
+                                maximumFractionDigits: 0,
+                            }}
+                            value={pph}
+                        />
+
                     </Col>
                 </Row>
 

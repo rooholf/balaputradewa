@@ -14,12 +14,14 @@ axiosInstance.interceptors.response.use(
       statusCode: error.response?.status,
     };
     return Promise.reject(customError);
-  }
+  },
 );
 
 axiosInstance.defaults.headers.common = {
   Authorization: `Bearer ${localStorage.getItem("refine-auth")}`,
 };
+
+
 
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("refine-auth");
