@@ -1,0 +1,476 @@
+{
+    "pages": {
+        "login": {
+            "title": "Masuk ke akun Anda",
+            "signin": "Masuk",
+            "signup": "Daftar",
+            "divider": "atau",
+            "fields": {
+                "email": "Email",
+                "password": "Kata Sandi"
+            },
+            "errors": {
+                "validEmail": "Alamat email tidak valid"
+            },
+            "buttons": {
+                "submit": "Masuk",
+                "forgotPassword": "Lupa kata sandi?",
+                "noAccount": "Belum punya akun?",
+                "rememberMe": "Ingat saya"
+            }
+        },
+        "forgotPassword": {
+            "title": "Lupa kata sandi Anda?",
+            "fields": {
+                "email": "Email"
+            },
+            "errors": {
+                "validEmail": "Alamat email tidak valid"
+            },
+            "buttons": {
+                "submit": "Kirim instruksi reset"
+            }
+        },
+        "register": {
+            "title": "Daftar untuk akun Anda",
+            "fields": {
+                "email": "Email",
+                "password": "Kata Sandi"
+            },
+            "errors": {
+                "validEmail": "Alamat email tidak valid"
+            },
+            "buttons": {
+                "submit": "Daftar",
+                "haveAccount": "Sudah punya akun?"
+            }
+        },
+        "updatePassword": {
+            "title": "Perbarui kata sandi",
+            "fields": {
+                "password": "Kata Sandi Baru",
+                "confirmPassword": "Konfirmasi kata sandi baru"
+            },
+            "errors": {
+                "confirmPasswordNotMatch": "Kata sandi tidak cocok"
+            },
+            "buttons": {
+                "submit": "Perbarui"
+            }
+        },
+        "error": {
+            "info": "Anda mungkin lupa menambahkan komponen {{action}} ke sumber daya {{resource}}.",
+            "404": "Maaf, halaman yang Anda kunjungi tidak ada.",
+            "resource404": "Apakah Anda yakin telah membuat sumber daya {{resource}}.",
+            "backHome": "Kembali ke Beranda"
+        }
+    },
+    "actions": {
+        "list": "Daftar",
+        "create": "Buat",
+        "edit": "Edit",
+        "show": "Tampilkan"
+    },
+    "buttons": {
+        "add": "Tambah",
+        "create": "Buat",
+        "save": "Simpan",
+        "logout": "Keluar",
+        "delete": "Hapus",
+        "edit": "Edit",
+        "cancel": "Batal",
+        "confirm": "Apakah Anda yakin?",
+        "filter": "Filter",
+        "clear": "Bersihkan",
+        "refresh": "Segarkan",
+        "show": "Tampilkan",
+        "undo": "Urungkan",
+        "import": "Impor",
+        "export": "Ekspor",
+        "clone": "Klon",
+        "accept": "Terima",
+        "acceptAll": "Terima Semua",
+        "reject": "Tolak",
+        "rejectAll": "Tolak Semua",
+        "nextStep": "Selanjutnya",
+        "previousStep": "Sebelumnya"
+    },
+    "loading": "Memuat",
+    "tags": {
+        "clone": "Klon"
+    },
+    "table": {
+        "actions": "Aksi"
+    },
+    "search": {
+        "placeholder": "Cari berdasarkan ID Toko, Email, Kata Kunci",
+        "more": "lebih banyak"
+    },
+    "status": {
+        "enable": "Aktifkan",
+        "disable": "Nonaktifkan"
+    },
+    "warnWhenUnsavedChanges": "Apakah Anda yakin ingin meninggalkan? Anda memiliki perubahan yang belum disimpan.",
+    "notifications": {
+        "success": "Berhasil",
+        "error": "Kesalahan (kode status: {{statusCode}})",
+        "undoable": "Anda memiliki {{seconds}} detik untuk membatalkan",
+        "createSuccess": "Berhasil membuat {{resource}}",
+        "createError": "Terjadi kesalahan saat membuat {{resource}} (kode status: {{statusCode}})",
+        "deleteSuccess": "Berhasil menghapus {{resource}}",
+        "deleteError": "Kesalahan saat menghapus {{resource}} (kode status: {{statusCode}})",
+        "editSuccess": "Berhasil mengedit {{resource}}",
+        "editError": "Kesalahan saat mengedit {{resource}} (kode status: {{statusCode}})",
+        "importProgress": "Mengimpor: {{processed}}/{{total}}"
+    },
+    "dashboard": {
+        "title": "Dasbor",
+        "deliveryMap": {
+            "title": "Peta Pengiriman"
+        },
+        "orders": {
+            "title": "Pesanan"
+        },
+        "totalSales": {
+            "title": "Total Penjualan"
+        },
+        "dailyRevenue": {
+            "title": "Pendapatan Harian"
+        },
+        "dailyOrders": {
+            "title": "Pesanan Harian"
+        },
+        "newCustomers": {
+            "title": "Pelanggan Baru"
+        },
+        "timeline": {
+            "title": "Linimasa",
+            "orderStatuses": {
+                "pending": "Menyiapkan pesanan",
+                "ready": "Pesanan siap",
+                "on the way": "Pesanan sedang dalam perjalanan",
+                "delivered": "Pesanan telah dikirim",
+                "cancelled": "Pesanan dibatalkan"
+            }
+        },
+        "recentOrders": {
+            "title": "Pesanan Terbaru"
+        },
+        "trendingMenus": {
+            "title": "Menu Tren Harian"
+        }
+    },
+    "enum": {
+        "orderStatuses": {
+            "Pending": "Tertunda",
+            "Ready": "Siap",
+            "Debit": "Debet",
+            "Transfer": "Transfer",
+            "Credit": "Kredit",
+            "Paid": "Dibayar",
+            "Loan": "Pinjaman",
+            "Saving": "Tabungan",
+            "Saving Withdrawal": "Penarikan Tabungan",
+            "Loan Payment": "Pembayaran Pinjaman",
+            "Expense": "Pengeluaran"
+        }
+    },
+    "orders": {
+        "orders": "Pesanan",
+        "titles": {
+            "list": "Pesanan",
+            "show": "Tampilkan Pesanan"
+        },
+        "fields": {
+            "orderNumber": "Nomor Pesanan",
+            "orderID": "ID",
+            "status": "Status",
+            "store": "Toko",
+            "user": "Petani",
+            "products": "Produk",
+            "createdAt": "Dibuat Pada",
+            "supplierPrice": "Harga Pemasok",
+            "profits": "Keuntungan",
+            "invCode": "Kode Faktur",
+            "invDate": "Tanggal Pesanan",
+            "invTotal": "Total",
+            "qty": "Kuantitas",
+            "amount": "Jumlah",
+            "itemsAmount": "{{amount}} item"
+        },
+        "filter": {
+            "title": "Filter",
+            "search": {
+                "label": "Cari",
+                "placeholder": "Nomor Pesanan, Petani, dll."
+            },
+            "status": {
+                "label": "Status",
+                "placeholder": "Status Pesanan"
+            },
+            "store": {
+                "label": "Toko",
+                "placeholder": "Cari Toko"
+            },
+            "user": {
+                "label": "Petani",
+                "placeholder": "Cari Pengguna"
+            },
+            "created_at": {
+                "label": "Dibuat Pada"
+            },
+            "submit": "Filter"
+        },
+        "courier": {
+            "deliveryTime": "Waktu Pengiriman",
+            "phone": "Telepon"
+        },
+        "deliverables": {
+            "deliverables": "Barang yang Dikirim",
+            "fields": {
+                "items": "Item",
+                "quantity": "Kuantitas",
+                "price": "Harga",
+                "total": "Total"
+            },
+            "mainTotal": "TOTAL UTAMA"
+        }
+    },
+    "products": {
+        "products": "Produk",
+        "titles": {
+            "list": "Produk",
+            "create": "Buat Produk",
+            "edit": "Edit Produk"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Nama",
+            "description": "Deskripsi",
+            "isActive": "Aktif",
+            "price": "Harga",
+            "category": "Kategori",
+            "images": {
+                "label": "Gambar",
+                "description": "Tambahkan gambar produk",
+                "validation": "harus 1080x1080 px"
+            },
+            "createdAt": "Dibuat Pada"
+        }
+    },
+    "reviews": {
+        "reviews": "Ulasan",
+        "titles": {
+            "list": "Ulasan"
+        },
+        "fields": {
+            "user": "Petani",
+            "orderId": "ID Pesanan",
+            "review": "Ulasan",
+            "rating": "Peringkat"
+        }
+    },
+    "stores": {
+        "stores": "Toko",
+        "titles": {
+            "create": "Buat Toko",
+            "edit": "Edit Toko",
+            "list": "Toko",
+            "show": "Tampilkan Toko"
+        },
+        "fields": {
+            "id": "ID Toko",
+            "title": "Judul",
+            "isActive": "Aktif",
+            "createdAt": "Dibuat Pada",
+            "address": "Alamat",
+            "email": "Email",
+            "gsm": "Telepon"
+        },
+        "buttons": {
+            "editProducts": "Edit Produk",
+            "addProduct": "Tambah Produk",
+            "outOfStock": "Habis",
+            "edit": "Edit Produk"
+        },
+        "selectLocation": "Pilih lokasi toko di peta",
+        "storeProducts": "Produk Toko",
+        "tagFilterDescription": "Gunakan tag untuk memfilter pencarian Anda",
+        "all": "Semua",
+        "productSearch": "Pencarian Produk"
+    },
+    "farmers": {
+        "farmers": "Petani",
+        "titles": {
+            "edit": "Edit Petani",
+            "list": "Petani",
+            "show": "Detail Petani"
+        },
+        "fields": {
+            "id": "ID",
+            "code": "Kode",
+            "name": "Nama",
+            "address": "Alamat",
+            "avatar": {
+                "label": "Avatar",
+                "description": "Klik atau seret gambar avatar ke area ini untuk mengunggah."
+            },
+            "phone": "Nomor Telepon",
+            "createdAt": "Dibuat Pada"
+        },
+        "filter": {
+            "title": "Filter",
+            "search": {
+                "label": "Cari",
+                "placeholder": "Kode, Nama, Telepon, dll."
+            },
+            "createdAt": {
+                "label": "Dibuat Pada"
+            },
+            "submit": "Filter"
+        }
+    },
+    "vehicles": {
+        "vehicles": "Kendaraan",
+        "titles": {
+            "edit": "Edit Kendaraan",
+            "list": "Kendaraan",
+            "show": "Detail Kendaraan"
+        },
+        "fields": {
+            "plate": "Plat",
+            "color": "Warna",
+            "brand": "Merek",
+            "chassis": "Sasis",
+            "createdAt": "Dibuat Pada"
+        },
+        "filter": {
+            "title": "Filter",
+            "search": {
+                "label": "Cari",
+                "placeholder": "Plat, Merek, dll."
+            },
+            "createdAt": {
+                "label": "Dibuat Pada"
+            },
+            "submit": "Filter"
+        }
+    },
+    "suppliers": {
+        "suppliers": "Pemasok",
+        "titles": {
+            "edit": "Edit Pemasok",
+            "list": "Pemasok",
+            "show": "Detail Pemasok"
+        },
+        "fields": {
+            "id": "ID",
+            "code": "Kode",
+            "name": "Nama",
+            "createdAt": "Dibuat Pada"
+        },
+        "filter": {
+            "title": "Filter",
+            "search": {
+                "label": "Cari",
+                "placeholder": "Kode, Nama, dll."
+            },
+            "createdAt": {
+                "label": "Dibuat Pada"
+            },
+            "submit": "Filter"
+        }
+    },
+    "factory": {
+        "factory": "Pabrik",
+        "titles": {
+            "edit": "Edit Pabrik",
+            "list": "Faktur Pabrik",
+            "show": "Detail Pabrik"
+        },
+        "fields": {
+            "id": "ID",
+            "code": "Kode",
+            "name": "Nama",
+            "invCode": "Kode Faktur",
+            "invDate": "Tanggal Faktur",
+            "invTotal": "Total(Rp)",
+            "status": "Status",
+            "factory": "Pabrik",
+            "qty": "Kuantitas",
+            "createdAt": "Dibuat Pada"
+        },
+        "filter": {
+            "title": "Filter",
+            "search": {
+                "label": "Cari",
+                "placeholder": "Kode, Nama, dll."
+            },
+            "createdAt": {
+                "label": "Dibuat Pada"
+            },
+            "submit": "Filter"
+        }
+    },
+    "supplier": {
+        "supplier": "Faktur Pemasok",
+        "titles": {
+            "edit": "Edit Pemasok",
+            "list": "Faktur Pemasok",
+            "show": "Detail Pemasok"
+        },
+        "fields": {
+            "id": "ID",
+            "invCode": "Kode Faktur",
+            "invDate": "Tanggal Faktur",
+            "invTotal": "Total(Rp)",
+            "status": "Status",
+            "supplier": "Pemasok",
+            "qty": "Kuantitas",
+            "createdAt": "Dibuat Pada"
+        },
+        "filter": {
+            "title": "Filter",
+            "search": {
+                "label": "Cari",
+                "placeholder": "Kode, Nama, dll."
+            },
+            "createdAt": {
+                "label": "Dibuat Pada"
+            },
+            "submit": "Filter"
+        }
+    },
+    "transaction": {
+        "transaction": "Transaksi",
+        "titles": {
+            "edit": "Edit Transaksi",
+            "list": "Faktur Transaksi",
+            "show": "Detail Transaksi"
+        },
+        "fields": {
+            "id": "ID",
+            "transactionCode": "Kode Transaksi",
+            "transactionDate": "Tanggal Transaksi",
+            "transactionTotal": "Total(Rp)",
+            "transactionType": "Jenis Transaksi",
+            "amount": "Jumlah",
+            "status": "Status",
+            "transaction": "Transaksi",
+            "qty": "Kuantitas",
+            "created_at": "Dibuat Pada",
+            "updated_at": "Diperbarui Pada"
+        },
+        "filter": {
+            "title": "Filter",
+            "search": {
+                "label": "Cari",
+                "placeholder": "Kode, Nama, dll."
+            },
+            "createdAt": {
+                "label": "Dibuat Pada"
+            },
+            "submit": "Filter"
+        }
+    }
+}
