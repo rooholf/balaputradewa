@@ -181,7 +181,7 @@ export const Header: React.FC = () => {
                     <Avatar size={16} src={`/images/flags/${lang}.svg`} />
                 </span>
             ),
-            label: lang === "en" ? "English" : "German",
+            label: lang === "en" ? "English" : "Indonesian",
         }));
 
     return (
@@ -260,7 +260,7 @@ export const Header: React.FC = () => {
                                     >
                                         {currentLocale === "en"
                                             ? "English"
-                                            : "German"}
+                                            : "Indonesian"}
                                         <DownOutlined
                                             style={{
                                                 fontSize: "12px",
